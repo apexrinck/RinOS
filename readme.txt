@@ -1,4 +1,4 @@
- * RinOS
+﻿ * RinOS
  * AUTHOR: CSU Yangyang
  * Based on FreeRTOS
  *
@@ -16,5 +16,5 @@
         2. 提供文件管理系统。
  *
  * 1 tab = 4 sapces
- * https://github.com/RinckT/RinOS
+ * https://github.com/apexrinck/RinOS
  * Follow MISRA C: 2012
