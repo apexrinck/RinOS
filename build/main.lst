@@ -1,0 +1,154 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"main.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.main,"ax",%progbits
+  22              		.align	2
+  23              		.global	main
+  24              		.thumb
+  25              		.thumb_func
+  27              	main:
+  28              	.LFB124:
+  29              		.file 1 "main.c"
+   1:main.c        **** /*
+   2:main.c        ****  * MIT License
+   3:main.c        ****  * 
+   4:main.c        ****  * Copyright (c) [2018] [CSU Yangyang]
+   5:main.c        ****  * 
+   6:main.c        ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   7:main.c        ****  * of this software and associated documentation files (the "Software"), to deal
+   8:main.c        ****  * in the Software without restriction, including without limitation the rights
+   9:main.c        ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  10:main.c        ****  * copies of the Software, and to permit persons to whom the Software is
+  11:main.c        ****  * furnished to do so, subject to the following conditions:
+  12:main.c        ****  * 
+  13:main.c        ****  * The above copyright notice and this permission notice shall be included in all
+  14:main.c        ****  * copies or substantial portions of the Software.
+  15:main.c        ****  * 
+  16:main.c        ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  17:main.c        ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  18:main.c        ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  19:main.c        ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  20:main.c        ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  21:main.c        ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  22:main.c        ****  * SOFTWARE.
+  23:main.c        ****  */
+  24:main.c        **** 
+  25:main.c        **** 
+  26:main.c        **** /* RinckOS Kernel V0.1.1
+  27:main.c        ****  * Copyright by CSU Yangyang
+  28:main.c        ****  * https://github.com/RinckT/RinOS
+  29:main.c        ****  * 
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s 			page 2
+
+
+  30:main.c        ****  * Support 32Bits RSIC MPU
+  31:main.c        ****  * Follow MISRA C: 2012
+  32:main.c        ****  * 1 tab == 4 sapces
+  33:main.c        ****  * based on FreeRTOS
+  34:main.c        ****  */
+  35:main.c        **** 
+  36:main.c        **** /* Kernel includes */
+  37:main.c        **** #include "RinOS.h"
+  38:main.c        **** #include "usr.h"
+  39:main.c        **** 
+  40:main.c        **** 
+  41:main.c        **** /* application include */
+  42:main.c        **** 
+  43:main.c        **** /* Hardware and starter kit includes */
+  44:main.c        **** 
+  45:main.c        **** int main(void)
+  46:main.c        **** {
+  30              		.loc 1 46 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34 0000 08B5     		push	{r3, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 3, -8
+  38              		.cfi_offset 14, -4
+  47:main.c        ****     usart3_init();
+  39              		.loc 1 47 0
+  40 0002 FFF7FEFF 		bl	usart3_init
+  41              	.LVL0:
+  48:main.c        ****     LED_init();
+  42              		.loc 1 48 0
+  43 0006 FFF7FEFF 		bl	LED_init
+  44              	.LVL1:
+  45              	.L2:
+  49:main.c        ****     int a = 5;
+  50:main.c        ****     while (1)
+  51:main.c        ****     {
+  52:main.c        ****         // USART_SendData(USART3, 0x01);
+  53:main.c        ****         //rout("s: Hello world!\n");
+  54:main.c        ****         rout("d: %d\n", a);
+  46              		.loc 1 54 0 discriminator 1
+  47 000a 0521     		movs	r1, #5
+  48 000c 0348     		ldr	r0, .L4
+  49 000e FFF7FEFF 		bl	rout
+  50              	.LVL2:
+  55:main.c        ****         rin_clog_delay(1);
+  51              		.loc 1 55 0 discriminator 1
+  52 0012 0120     		movs	r0, #1
+  53 0014 FFF7FEFF 		bl	rin_clog_delay
+  54              	.LVL3:
+  55 0018 F7E7     		b	.L2
+  56              	.L5:
+  57 001a 00BF     		.align	2
+  58              	.L4:
+  59 001c 00000000 		.word	.LC0
+  60              		.cfi_endproc
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s 			page 3
+
+
+  61              	.LFE124:
+  63              		.section	.rodata.str1.4,"aMS",%progbits,1
+  64              		.align	2
+  65              	.LC0:
+  66 0000 643A2025 		.ascii	"d: %d\012\000"
+  66      640A00
+  67              		.text
+  68              	.Letext0:
+  69              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+  70              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+  71              		.file 4 "usr/device/usart.h"
+  72              		.file 5 "core/toolbox/rin_heartbeat.h"
+  73              		.file 6 "core/kernel/rin_io.h"
+  74              		.file 7 "core/portable/rin_portable.h"
+  75              		.file 8 "lib/system/core_cm4.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s:22     .text.main:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s:27     .text.main:00000000 main
+C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s:59     .text.main:0000001c $d
+C:\Users\rinck\AppData\Local\Temp\cccG5EJb.s:64     .rodata.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+usart3_init
+LED_init
+rout
+rin_clog_delay

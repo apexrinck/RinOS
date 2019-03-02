@@ -1,0 +1,432 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"stm32f4xx_it.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.NMI_Handler,"ax",%progbits
+  22              		.align	2
+  23              		.global	NMI_Handler
+  24              		.thumb
+  25              		.thumb_func
+  27              	NMI_Handler:
+  28              	.LFB124:
+  29              		.file 1 "lib/stm32f4xx_it.c"
+   1:lib/stm32f4xx_it.c **** /**
+   2:lib/stm32f4xx_it.c ****   ******************************************************************************
+   3:lib/stm32f4xx_it.c ****   * @file    Project/STM32F4xx_StdPeriph_Templates/stm32f4xx_it.c 
+   4:lib/stm32f4xx_it.c ****   * @author  MCD Application Team
+   5:lib/stm32f4xx_it.c ****   * @version V1.8.0
+   6:lib/stm32f4xx_it.c ****   * @date    04-November-2016
+   7:lib/stm32f4xx_it.c ****   * @brief   Main Interrupt Service Routines.
+   8:lib/stm32f4xx_it.c ****   *          This file provides template for all exceptions handler and 
+   9:lib/stm32f4xx_it.c ****   *          peripherals interrupt service routine.
+  10:lib/stm32f4xx_it.c ****   ******************************************************************************
+  11:lib/stm32f4xx_it.c ****   * @attention
+  12:lib/stm32f4xx_it.c ****   *
+  13:lib/stm32f4xx_it.c ****   * <h2><center>&copy; COPYRIGHT 2016 STMicroelectronics</center></h2>
+  14:lib/stm32f4xx_it.c ****   *
+  15:lib/stm32f4xx_it.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  16:lib/stm32f4xx_it.c ****   * You may not use this file except in compliance with the License.
+  17:lib/stm32f4xx_it.c ****   * You may obtain a copy of the License at:
+  18:lib/stm32f4xx_it.c ****   *
+  19:lib/stm32f4xx_it.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
+  20:lib/stm32f4xx_it.c ****   *
+  21:lib/stm32f4xx_it.c ****   * Unless required by applicable law or agreed to in writing, software 
+  22:lib/stm32f4xx_it.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
+  23:lib/stm32f4xx_it.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  24:lib/stm32f4xx_it.c ****   * See the License for the specific language governing permissions and
+  25:lib/stm32f4xx_it.c ****   * limitations under the License.
+  26:lib/stm32f4xx_it.c ****   *
+  27:lib/stm32f4xx_it.c ****   ******************************************************************************
+  28:lib/stm32f4xx_it.c ****   */
+  29:lib/stm32f4xx_it.c **** 
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 2
+
+
+  30:lib/stm32f4xx_it.c **** /* Includes ------------------------------------------------------------------*/
+  31:lib/stm32f4xx_it.c **** #include "stm32f4xx_it.h"
+  32:lib/stm32f4xx_it.c **** //#include "main.h"
+  33:lib/stm32f4xx_it.c **** #include "stdio.h"
+  34:lib/stm32f4xx_it.c **** 
+  35:lib/stm32f4xx_it.c **** /** @addtogroup Template_Project
+  36:lib/stm32f4xx_it.c ****   * @{
+  37:lib/stm32f4xx_it.c ****   */
+  38:lib/stm32f4xx_it.c **** 
+  39:lib/stm32f4xx_it.c **** /* Private typedef -----------------------------------------------------------*/
+  40:lib/stm32f4xx_it.c **** /* Private define ------------------------------------------------------------*/
+  41:lib/stm32f4xx_it.c **** /* Private macro -------------------------------------------------------------*/
+  42:lib/stm32f4xx_it.c **** /* Private variables ---------------------------------------------------------*/
+  43:lib/stm32f4xx_it.c **** /* Private function prototypes -----------------------------------------------*/
+  44:lib/stm32f4xx_it.c **** /* Private functions ---------------------------------------------------------*/
+  45:lib/stm32f4xx_it.c **** 
+  46:lib/stm32f4xx_it.c **** /******************************************************************************/
+  47:lib/stm32f4xx_it.c **** /*            Cortex-M4 Processor Exceptions Handlers                         */
+  48:lib/stm32f4xx_it.c **** /******************************************************************************/
+  49:lib/stm32f4xx_it.c **** 
+  50:lib/stm32f4xx_it.c **** /**
+  51:lib/stm32f4xx_it.c ****   * @brief  This function handles NMI exception.
+  52:lib/stm32f4xx_it.c ****   * @param  None
+  53:lib/stm32f4xx_it.c ****   * @retval None
+  54:lib/stm32f4xx_it.c ****   */
+  55:lib/stm32f4xx_it.c **** void NMI_Handler(void)
+  56:lib/stm32f4xx_it.c **** {
+  30              		.loc 1 56 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34 0000 08B5     		push	{r3, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 3, -8
+  38              		.cfi_offset 14, -4
+  57:lib/stm32f4xx_it.c **** 	printf("NMI_Handler\r\n");
+  39              		.loc 1 57 0
+  40 0002 0248     		ldr	r0, .L3
+  41 0004 FFF7FEFF 		bl	puts
+  42              	.LVL0:
+  43 0008 08BD     		pop	{r3, pc}
+  44              	.L4:
+  45 000a 00BF     		.align	2
+  46              	.L3:
+  47 000c 00000000 		.word	.LC0
+  48              		.cfi_endproc
+  49              	.LFE124:
+  51              		.section	.text.HardFault_Handler,"ax",%progbits
+  52              		.align	2
+  53              		.global	HardFault_Handler
+  54              		.thumb
+  55              		.thumb_func
+  57              	HardFault_Handler:
+  58              	.LFB125:
+  58:lib/stm32f4xx_it.c **** }
+  59:lib/stm32f4xx_it.c **** 
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 3
+
+
+  60:lib/stm32f4xx_it.c **** /**
+  61:lib/stm32f4xx_it.c ****   * @brief  This function handles Hard Fault exception.
+  62:lib/stm32f4xx_it.c ****   * @param  None
+  63:lib/stm32f4xx_it.c ****   * @retval None
+  64:lib/stm32f4xx_it.c ****   */
+  65:lib/stm32f4xx_it.c **** void HardFault_Handler(void)
+  66:lib/stm32f4xx_it.c **** {
+  59              		.loc 1 66 0
+  60              		.cfi_startproc
+  61              		@ Volatile: function does not return.
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64 0000 08B5     		push	{r3, lr}
+  65              	.LCFI1:
+  66              		.cfi_def_cfa_offset 8
+  67              		.cfi_offset 3, -8
+  68              		.cfi_offset 14, -4
+  67:lib/stm32f4xx_it.c **** 	printf("HardFault_Handler\r\n");
+  69              		.loc 1 67 0
+  70 0002 0448     		ldr	r0, .L8
+  71 0004 FFF7FEFF 		bl	puts
+  72              	.LVL1:
+  68:lib/stm32f4xx_it.c **** 	printf("%x\r\n", *((u32*)0xE000ED2C));
+  73              		.loc 1 68 0
+  74 0008 034B     		ldr	r3, .L8+4
+  75 000a 1968     		ldr	r1, [r3]
+  76 000c 0348     		ldr	r0, .L8+8
+  77 000e FFF7FEFF 		bl	printf
+  78              	.LVL2:
+  79              	.L6:
+  80 0012 FEE7     		b	.L6
+  81              	.L9:
+  82              		.align	2
+  83              	.L8:
+  84 0014 10000000 		.word	.LC1
+  85 0018 2CED00E0 		.word	-536810196
+  86 001c 24000000 		.word	.LC2
+  87              		.cfi_endproc
+  88              	.LFE125:
+  90              		.section	.text.MemManage_Handler,"ax",%progbits
+  91              		.align	2
+  92              		.global	MemManage_Handler
+  93              		.thumb
+  94              		.thumb_func
+  96              	MemManage_Handler:
+  97              	.LFB126:
+  69:lib/stm32f4xx_it.c ****   /* Go to infinite loop when Hard Fault exception occurs */
+  70:lib/stm32f4xx_it.c ****   while (1)
+  71:lib/stm32f4xx_it.c ****   {
+  72:lib/stm32f4xx_it.c ****   }
+  73:lib/stm32f4xx_it.c **** }
+  74:lib/stm32f4xx_it.c **** 
+  75:lib/stm32f4xx_it.c **** /**
+  76:lib/stm32f4xx_it.c ****   * @brief  This function handles Memory Manage exception.
+  77:lib/stm32f4xx_it.c ****   * @param  None
+  78:lib/stm32f4xx_it.c ****   * @retval None
+  79:lib/stm32f4xx_it.c ****   */
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 4
+
+
+  80:lib/stm32f4xx_it.c **** void MemManage_Handler(void)
+  81:lib/stm32f4xx_it.c **** {
+  98              		.loc 1 81 0
+  99              		.cfi_startproc
+ 100              		@ Volatile: function does not return.
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103 0000 08B5     		push	{r3, lr}
+ 104              	.LCFI2:
+ 105              		.cfi_def_cfa_offset 8
+ 106              		.cfi_offset 3, -8
+ 107              		.cfi_offset 14, -4
+  82:lib/stm32f4xx_it.c **** 	printf("MemManage_Handler\r\n");
+ 108              		.loc 1 82 0
+ 109 0002 0248     		ldr	r0, .L13
+ 110 0004 FFF7FEFF 		bl	puts
+ 111              	.LVL3:
+ 112              	.L11:
+ 113 0008 FEE7     		b	.L11
+ 114              	.L14:
+ 115 000a 00BF     		.align	2
+ 116              	.L13:
+ 117 000c 2C000000 		.word	.LC3
+ 118              		.cfi_endproc
+ 119              	.LFE126:
+ 121              		.section	.text.BusFault_Handler,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	BusFault_Handler
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	BusFault_Handler:
+ 128              	.LFB127:
+  83:lib/stm32f4xx_it.c ****   /* Go to infinite loop when Memory Manage exception occurs */
+  84:lib/stm32f4xx_it.c ****   while (1)
+  85:lib/stm32f4xx_it.c ****   {
+  86:lib/stm32f4xx_it.c ****   }
+  87:lib/stm32f4xx_it.c **** }
+  88:lib/stm32f4xx_it.c **** 
+  89:lib/stm32f4xx_it.c **** /**
+  90:lib/stm32f4xx_it.c ****   * @brief  This function handles Bus Fault exception.
+  91:lib/stm32f4xx_it.c ****   * @param  None
+  92:lib/stm32f4xx_it.c ****   * @retval None
+  93:lib/stm32f4xx_it.c ****   */
+  94:lib/stm32f4xx_it.c **** void BusFault_Handler(void)
+  95:lib/stm32f4xx_it.c **** {
+ 129              		.loc 1 95 0
+ 130              		.cfi_startproc
+ 131              		@ Volatile: function does not return.
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134 0000 08B5     		push	{r3, lr}
+ 135              	.LCFI3:
+ 136              		.cfi_def_cfa_offset 8
+ 137              		.cfi_offset 3, -8
+ 138              		.cfi_offset 14, -4
+  96:lib/stm32f4xx_it.c **** 	printf("BusFault_Handler\r\n");
+ 139              		.loc 1 96 0
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 5
+
+
+ 140 0002 0248     		ldr	r0, .L18
+ 141 0004 FFF7FEFF 		bl	puts
+ 142              	.LVL4:
+ 143              	.L16:
+ 144 0008 FEE7     		b	.L16
+ 145              	.L19:
+ 146 000a 00BF     		.align	2
+ 147              	.L18:
+ 148 000c 40000000 		.word	.LC4
+ 149              		.cfi_endproc
+ 150              	.LFE127:
+ 152              		.section	.text.UsageFault_Handler,"ax",%progbits
+ 153              		.align	2
+ 154              		.global	UsageFault_Handler
+ 155              		.thumb
+ 156              		.thumb_func
+ 158              	UsageFault_Handler:
+ 159              	.LFB128:
+  97:lib/stm32f4xx_it.c ****   /* Go to infinite loop when Bus Fault exception occurs */
+  98:lib/stm32f4xx_it.c ****   while (1)
+  99:lib/stm32f4xx_it.c ****   {
+ 100:lib/stm32f4xx_it.c ****   }
+ 101:lib/stm32f4xx_it.c **** }
+ 102:lib/stm32f4xx_it.c **** 
+ 103:lib/stm32f4xx_it.c **** /**
+ 104:lib/stm32f4xx_it.c ****   * @brief  This function handles Usage Fault exception.
+ 105:lib/stm32f4xx_it.c ****   * @param  None
+ 106:lib/stm32f4xx_it.c ****   * @retval None
+ 107:lib/stm32f4xx_it.c ****   */
+ 108:lib/stm32f4xx_it.c **** void UsageFault_Handler(void)
+ 109:lib/stm32f4xx_it.c **** {
+ 160              		.loc 1 109 0
+ 161              		.cfi_startproc
+ 162              		@ Volatile: function does not return.
+ 163              		@ args = 0, pretend = 0, frame = 0
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165 0000 08B5     		push	{r3, lr}
+ 166              	.LCFI4:
+ 167              		.cfi_def_cfa_offset 8
+ 168              		.cfi_offset 3, -8
+ 169              		.cfi_offset 14, -4
+ 110:lib/stm32f4xx_it.c **** 	printf("UsageFault_Handler\r\n");
+ 170              		.loc 1 110 0
+ 171 0002 0248     		ldr	r0, .L23
+ 172 0004 FFF7FEFF 		bl	puts
+ 173              	.LVL5:
+ 174              	.L21:
+ 175 0008 FEE7     		b	.L21
+ 176              	.L24:
+ 177 000a 00BF     		.align	2
+ 178              	.L23:
+ 179 000c 54000000 		.word	.LC5
+ 180              		.cfi_endproc
+ 181              	.LFE128:
+ 183              		.section	.text.SVC_Handler,"ax",%progbits
+ 184              		.align	2
+ 185              		.global	SVC_Handler
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 6
+
+
+ 186              		.thumb
+ 187              		.thumb_func
+ 189              	SVC_Handler:
+ 190              	.LFB129:
+ 111:lib/stm32f4xx_it.c ****   /* Go to infinite loop when Usage Fault exception occurs */
+ 112:lib/stm32f4xx_it.c ****   while (1)
+ 113:lib/stm32f4xx_it.c ****   {
+ 114:lib/stm32f4xx_it.c ****   }
+ 115:lib/stm32f4xx_it.c **** }
+ 116:lib/stm32f4xx_it.c **** 
+ 117:lib/stm32f4xx_it.c **** /**
+ 118:lib/stm32f4xx_it.c ****   * @brief  This function handles SVCall exception.
+ 119:lib/stm32f4xx_it.c ****   * @param  None
+ 120:lib/stm32f4xx_it.c ****   * @retval None
+ 121:lib/stm32f4xx_it.c ****   */
+ 122:lib/stm32f4xx_it.c **** void SVC_Handler(void)
+ 123:lib/stm32f4xx_it.c **** {
+ 191              		.loc 1 123 0
+ 192              		.cfi_startproc
+ 193              		@ args = 0, pretend = 0, frame = 0
+ 194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 195              		@ link register save eliminated.
+ 196 0000 7047     		bx	lr
+ 197              		.cfi_endproc
+ 198              	.LFE129:
+ 200 0002 00BF     		.section	.text.DebugMon_Handler,"ax",%progbits
+ 201              		.align	2
+ 202              		.global	DebugMon_Handler
+ 203              		.thumb
+ 204              		.thumb_func
+ 206              	DebugMon_Handler:
+ 207              	.LFB130:
+ 124:lib/stm32f4xx_it.c **** }
+ 125:lib/stm32f4xx_it.c **** 
+ 126:lib/stm32f4xx_it.c **** /**
+ 127:lib/stm32f4xx_it.c ****   * @brief  This function handles Debug Monitor exception.
+ 128:lib/stm32f4xx_it.c ****   * @param  None
+ 129:lib/stm32f4xx_it.c ****   * @retval None
+ 130:lib/stm32f4xx_it.c ****   */
+ 131:lib/stm32f4xx_it.c **** void DebugMon_Handler(void)
+ 132:lib/stm32f4xx_it.c **** {
+ 208              		.loc 1 132 0
+ 209              		.cfi_startproc
+ 210              		@ args = 0, pretend = 0, frame = 0
+ 211              		@ frame_needed = 0, uses_anonymous_args = 0
+ 212              		@ link register save eliminated.
+ 213 0000 7047     		bx	lr
+ 214              		.cfi_endproc
+ 215              	.LFE130:
+ 217 0002 00BF     		.section	.rodata.str1.4,"aMS",%progbits,1
+ 218              		.align	2
+ 219              	.LC0:
+ 220 0000 4E4D495F 		.ascii	"NMI_Handler\015\000"
+ 220      48616E64 
+ 220      6C65720D 
+ 220      00
+ 221 000d 000000   		.space	3
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 7
+
+
+ 222              	.LC1:
+ 223 0010 48617264 		.ascii	"HardFault_Handler\015\000"
+ 223      4661756C 
+ 223      745F4861 
+ 223      6E646C65 
+ 223      720D00
+ 224 0023 00       		.space	1
+ 225              	.LC2:
+ 226 0024 25780D0A 		.ascii	"%x\015\012\000"
+ 226      00
+ 227 0029 000000   		.space	3
+ 228              	.LC3:
+ 229 002c 4D656D4D 		.ascii	"MemManage_Handler\015\000"
+ 229      616E6167 
+ 229      655F4861 
+ 229      6E646C65 
+ 229      720D00
+ 230 003f 00       		.space	1
+ 231              	.LC4:
+ 232 0040 42757346 		.ascii	"BusFault_Handler\015\000"
+ 232      61756C74 
+ 232      5F48616E 
+ 232      646C6572 
+ 232      0D00
+ 233 0052 0000     		.space	2
+ 234              	.LC5:
+ 235 0054 55736167 		.ascii	"UsageFault_Handler\015\000"
+ 235      65466175 
+ 235      6C745F48 
+ 235      616E646C 
+ 235      65720D00 
+ 236              		.text
+ 237              	.Letext0:
+ 238              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 239              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 240              		.file 4 "lib/stm32f4xx.h"
+ 241              		.file 5 "lib/system/core_cm4.h"
+ 242              		.file 6 "<built-in>"
+ 243              		.file 7 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\stdio.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f4xx_it.c
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:22     .text.NMI_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:27     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:47     .text.NMI_Handler:0000000c $d
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:52     .text.HardFault_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:57     .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:84     .text.HardFault_Handler:00000014 $d
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:91     .text.MemManage_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:96     .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:117    .text.MemManage_Handler:0000000c $d
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:122    .text.BusFault_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:127    .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:148    .text.BusFault_Handler:0000000c $d
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:153    .text.UsageFault_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:158    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:179    .text.UsageFault_Handler:0000000c $d
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:184    .text.SVC_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:189    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:201    .text.DebugMon_Handler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:206    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\rinck\AppData\Local\Temp\ccC6YuNn.s:218    .rodata.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+puts
+printf

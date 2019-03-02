@@ -1,0 +1,545 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"misc.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.NVIC_PriorityGroupConfig,"ax",%progbits
+  22              		.align	2
+  23              		.global	NVIC_PriorityGroupConfig
+  24              		.thumb
+  25              		.thumb_func
+  27              	NVIC_PriorityGroupConfig:
+  28              	.LFB123:
+  29              		.file 1 "lib/src/misc.c"
+   1:lib/src/misc.c **** /**
+   2:lib/src/misc.c ****   ******************************************************************************
+   3:lib/src/misc.c ****   * @file    misc.c
+   4:lib/src/misc.c ****   * @author  MCD Application Team
+   5:lib/src/misc.c ****   * @version V1.8.0
+   6:lib/src/misc.c ****   * @date    04-November-2016
+   7:lib/src/misc.c ****   * @brief   This file provides all the miscellaneous firmware functions (add-on
+   8:lib/src/misc.c ****   *          to CMSIS functions).
+   9:lib/src/misc.c ****   *          
+  10:lib/src/misc.c ****   *  @verbatim   
+  11:lib/src/misc.c ****   *                               
+  12:lib/src/misc.c ****   *          ===================================================================      
+  13:lib/src/misc.c ****   *                        How to configure Interrupts using driver 
+  14:lib/src/misc.c ****   *          ===================================================================      
+  15:lib/src/misc.c ****   * 
+  16:lib/src/misc.c ****   *            This section provide functions allowing to configure the NVIC interrupts (IRQ).
+  17:lib/src/misc.c ****   *            The Cortex-M4 exceptions are managed by CMSIS functions.
+  18:lib/src/misc.c ****   *
+  19:lib/src/misc.c ****   *            1. Configure the NVIC Priority Grouping using NVIC_PriorityGroupConfig()
+  20:lib/src/misc.c ****   *                function according to the following table.
+  21:lib/src/misc.c ****  
+  22:lib/src/misc.c ****   *  The table below gives the allowed values of the pre-emption priority and subpriority according
+  23:lib/src/misc.c ****   *  to the Priority Grouping configuration performed by NVIC_PriorityGroupConfig function
+  24:lib/src/misc.c ****   *    ============================================================================================
+  25:lib/src/misc.c ****   *      NVIC_PriorityGroup   | NVIC_IRQChannelPreemptionPriority | NVIC_IRQChannelSubPriority  |  
+  26:lib/src/misc.c ****   *    ============================================================================================
+  27:lib/src/misc.c ****   *     NVIC_PriorityGroup_0  |                0                  |            0-15             | 0
+  28:lib/src/misc.c ****   *                           |                                   |                             | 4
+  29:lib/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 2
+
+
+  30:lib/src/misc.c ****   *     NVIC_PriorityGroup_1  |                0-1                |            0-7              | 1
+  31:lib/src/misc.c ****   *                           |                                   |                             | 3
+  32:lib/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  33:lib/src/misc.c ****   *     NVIC_PriorityGroup_2  |                0-3                |            0-3              | 2
+  34:lib/src/misc.c ****   *                           |                                   |                             | 2
+  35:lib/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  36:lib/src/misc.c ****   *     NVIC_PriorityGroup_3  |                0-7                |            0-1              | 3
+  37:lib/src/misc.c ****   *                           |                                   |                             | 1
+  38:lib/src/misc.c ****   *    --------------------------------------------------------------------------------------------
+  39:lib/src/misc.c ****   *     NVIC_PriorityGroup_4  |                0-15               |            0                | 4
+  40:lib/src/misc.c ****   *                           |                                   |                             | 0
+  41:lib/src/misc.c ****   *    ============================================================================================
+  42:lib/src/misc.c ****   *
+  43:lib/src/misc.c ****   *            2. Enable and Configure the priority of the selected IRQ Channels using NVIC_Init() 
+  44:lib/src/misc.c ****   *
+  45:lib/src/misc.c ****   * @note  When the NVIC_PriorityGroup_0 is selected, IRQ pre-emption is no more possible. 
+  46:lib/src/misc.c ****   *        The pending IRQ priority will be managed only by the subpriority.
+  47:lib/src/misc.c ****   *
+  48:lib/src/misc.c ****   * @note  IRQ priority order (sorted by highest to lowest priority):
+  49:lib/src/misc.c ****   *         - Lowest pre-emption priority
+  50:lib/src/misc.c ****   *         - Lowest subpriority
+  51:lib/src/misc.c ****   *         - Lowest hardware priority (IRQ number)
+  52:lib/src/misc.c ****   *
+  53:lib/src/misc.c ****   *  @endverbatim
+  54:lib/src/misc.c ****   *
+  55:lib/src/misc.c ****   ******************************************************************************
+  56:lib/src/misc.c ****   * @attention
+  57:lib/src/misc.c ****   *
+  58:lib/src/misc.c ****   * <h2><center>&copy; COPYRIGHT 2016 STMicroelectronics</center></h2>
+  59:lib/src/misc.c ****   *
+  60:lib/src/misc.c ****   * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  61:lib/src/misc.c ****   * You may not use this file except in compliance with the License.
+  62:lib/src/misc.c ****   * You may obtain a copy of the License at:
+  63:lib/src/misc.c ****   *
+  64:lib/src/misc.c ****   *        http://www.st.com/software_license_agreement_liberty_v2
+  65:lib/src/misc.c ****   *
+  66:lib/src/misc.c ****   * Unless required by applicable law or agreed to in writing, software 
+  67:lib/src/misc.c ****   * distributed under the License is distributed on an "AS IS" BASIS, 
+  68:lib/src/misc.c ****   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  69:lib/src/misc.c ****   * See the License for the specific language governing permissions and
+  70:lib/src/misc.c ****   * limitations under the License.
+  71:lib/src/misc.c ****   *
+  72:lib/src/misc.c ****   ******************************************************************************
+  73:lib/src/misc.c ****   */
+  74:lib/src/misc.c **** 
+  75:lib/src/misc.c **** /* Includes ------------------------------------------------------------------*/
+  76:lib/src/misc.c **** #include "misc.h"
+  77:lib/src/misc.c **** 
+  78:lib/src/misc.c **** /** @addtogroup STM32F4xx_StdPeriph_Driver
+  79:lib/src/misc.c ****   * @{
+  80:lib/src/misc.c ****   */
+  81:lib/src/misc.c **** 
+  82:lib/src/misc.c **** /** @defgroup MISC 
+  83:lib/src/misc.c ****   * @brief MISC driver modules
+  84:lib/src/misc.c ****   * @{
+  85:lib/src/misc.c ****   */
+  86:lib/src/misc.c **** 
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 3
+
+
+  87:lib/src/misc.c **** /* Private typedef -----------------------------------------------------------*/
+  88:lib/src/misc.c **** /* Private define ------------------------------------------------------------*/
+  89:lib/src/misc.c **** #define AIRCR_VECTKEY_MASK    ((uint32_t)0x05FA0000)
+  90:lib/src/misc.c **** 
+  91:lib/src/misc.c **** /* Private macro -------------------------------------------------------------*/
+  92:lib/src/misc.c **** /* Private variables ---------------------------------------------------------*/
+  93:lib/src/misc.c **** /* Private function prototypes -----------------------------------------------*/
+  94:lib/src/misc.c **** /* Private functions ---------------------------------------------------------*/
+  95:lib/src/misc.c **** 
+  96:lib/src/misc.c **** /** @defgroup MISC_Private_Functions
+  97:lib/src/misc.c ****   * @{
+  98:lib/src/misc.c ****   */
+  99:lib/src/misc.c **** 
+ 100:lib/src/misc.c **** /**
+ 101:lib/src/misc.c ****   * @brief  Configures the priority grouping: pre-emption priority and subpriority.
+ 102:lib/src/misc.c ****   * @param  NVIC_PriorityGroup: specifies the priority grouping bits length. 
+ 103:lib/src/misc.c ****   *   This parameter can be one of the following values:
+ 104:lib/src/misc.c ****   *     @arg NVIC_PriorityGroup_0: 0 bits for pre-emption priority
+ 105:lib/src/misc.c ****   *                                4 bits for subpriority
+ 106:lib/src/misc.c ****   *     @arg NVIC_PriorityGroup_1: 1 bits for pre-emption priority
+ 107:lib/src/misc.c ****   *                                3 bits for subpriority
+ 108:lib/src/misc.c ****   *     @arg NVIC_PriorityGroup_2: 2 bits for pre-emption priority
+ 109:lib/src/misc.c ****   *                                2 bits for subpriority
+ 110:lib/src/misc.c ****   *     @arg NVIC_PriorityGroup_3: 3 bits for pre-emption priority
+ 111:lib/src/misc.c ****   *                                1 bits for subpriority
+ 112:lib/src/misc.c ****   *     @arg NVIC_PriorityGroup_4: 4 bits for pre-emption priority
+ 113:lib/src/misc.c ****   *                                0 bits for subpriority
+ 114:lib/src/misc.c ****   * @note   When the NVIC_PriorityGroup_0 is selected, IRQ pre-emption is no more possible. 
+ 115:lib/src/misc.c ****   *         The pending IRQ priority will be managed only by the subpriority. 
+ 116:lib/src/misc.c ****   * @retval None
+ 117:lib/src/misc.c ****   */
+ 118:lib/src/misc.c **** void NVIC_PriorityGroupConfig(uint32_t NVIC_PriorityGroup)
+ 119:lib/src/misc.c **** {
+  30              		.loc 1 119 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              	.LVL0:
+ 120:lib/src/misc.c ****   /* Check the parameters */
+ 121:lib/src/misc.c ****   assert_param(IS_NVIC_PRIORITY_GROUP(NVIC_PriorityGroup));
+ 122:lib/src/misc.c ****   
+ 123:lib/src/misc.c ****   /* Set the PRIGROUP[10:8] bits according to NVIC_PriorityGroup value */
+ 124:lib/src/misc.c ****   SCB->AIRCR = AIRCR_VECTKEY_MASK | NVIC_PriorityGroup;
+  36              		.loc 1 124 0
+  37 0000 40F0BF60 		orr	r0, r0, #100139008
+  38              	.LVL1:
+  39 0004 40F40030 		orr	r0, r0, #131072
+  40 0008 014B     		ldr	r3, .L2
+  41 000a D860     		str	r0, [r3, #12]
+  42 000c 7047     		bx	lr
+  43              	.L3:
+  44 000e 00BF     		.align	2
+  45              	.L2:
+  46 0010 00ED00E0 		.word	-536810240
+  47              		.cfi_endproc
+  48              	.LFE123:
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 4
+
+
+  50              		.section	.text.NVIC_Init,"ax",%progbits
+  51              		.align	2
+  52              		.global	NVIC_Init
+  53              		.thumb
+  54              		.thumb_func
+  56              	NVIC_Init:
+  57              	.LFB124:
+ 125:lib/src/misc.c **** }
+ 126:lib/src/misc.c **** 
+ 127:lib/src/misc.c **** /**
+ 128:lib/src/misc.c ****   * @brief  Initializes the NVIC peripheral according to the specified
+ 129:lib/src/misc.c ****   *         parameters in the NVIC_InitStruct.
+ 130:lib/src/misc.c ****   * @note   To configure interrupts priority correctly, the NVIC_PriorityGroupConfig()
+ 131:lib/src/misc.c ****   *         function should be called before. 
+ 132:lib/src/misc.c ****   * @param  NVIC_InitStruct: pointer to a NVIC_InitTypeDef structure that contains
+ 133:lib/src/misc.c ****   *         the configuration information for the specified NVIC peripheral.
+ 134:lib/src/misc.c ****   * @retval None
+ 135:lib/src/misc.c ****   */
+ 136:lib/src/misc.c **** void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
+ 137:lib/src/misc.c **** {
+  58              		.loc 1 137 0
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+  63              	.LVL2:
+ 138:lib/src/misc.c ****   uint8_t tmppriority = 0x00, tmppre = 0x00, tmpsub = 0x0F;
+ 139:lib/src/misc.c ****   
+ 140:lib/src/misc.c ****   /* Check the parameters */
+ 141:lib/src/misc.c ****   assert_param(IS_FUNCTIONAL_STATE(NVIC_InitStruct->NVIC_IRQChannelCmd));
+ 142:lib/src/misc.c ****   assert_param(IS_NVIC_PREEMPTION_PRIORITY(NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority));  
+ 143:lib/src/misc.c ****   assert_param(IS_NVIC_SUB_PRIORITY(NVIC_InitStruct->NVIC_IRQChannelSubPriority));
+ 144:lib/src/misc.c ****     
+ 145:lib/src/misc.c ****   if (NVIC_InitStruct->NVIC_IRQChannelCmd != DISABLE)
+  64              		.loc 1 145 0
+  65 0000 C378     		ldrb	r3, [r0, #3]	@ zero_extendqisi2
+  66 0002 0BB3     		cbz	r3, .L5
+ 137:lib/src/misc.c ****   uint8_t tmppriority = 0x00, tmppre = 0x00, tmpsub = 0x0F;
+  67              		.loc 1 137 0
+  68 0004 10B4     		push	{r4}
+  69              	.LCFI0:
+  70              		.cfi_def_cfa_offset 4
+  71              		.cfi_offset 4, -4
+ 146:lib/src/misc.c ****   {
+ 147:lib/src/misc.c ****     /* Compute the Corresponding IRQ Priority --------------------------------*/    
+ 148:lib/src/misc.c ****     tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
+  72              		.loc 1 148 0
+  73 0006 184B     		ldr	r3, .L9
+  74 0008 DA68     		ldr	r2, [r3, #12]
+  75 000a D243     		mvns	r2, r2
+  76 000c C2F30222 		ubfx	r2, r2, #8, #3
+  77              	.LVL3:
+ 149:lib/src/misc.c ****     tmppre = (0x4 - tmppriority);
+  78              		.loc 1 149 0
+  79 0010 C2F10401 		rsb	r1, r2, #4
+  80 0014 CCB2     		uxtb	r4, r1
+  81              	.LVL4:
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 5
+
+
+ 150:lib/src/misc.c ****     tmpsub = tmpsub >> tmppriority;
+  82              		.loc 1 150 0
+  83 0016 0F23     		movs	r3, #15
+  84 0018 1341     		asrs	r3, r3, r2
+  85              	.LVL5:
+ 151:lib/src/misc.c **** 
+ 152:lib/src/misc.c ****     tmppriority = NVIC_InitStruct->NVIC_IRQChannelPreemptionPriority << tmppre;
+  86              		.loc 1 152 0
+  87 001a 4178     		ldrb	r1, [r0, #1]	@ zero_extendqisi2
+  88 001c A140     		lsls	r1, r1, r4
+  89 001e C9B2     		uxtb	r1, r1
+  90              	.LVL6:
+ 153:lib/src/misc.c ****     tmppriority |=  (uint8_t)(NVIC_InitStruct->NVIC_IRQChannelSubPriority & tmpsub);
+  91              		.loc 1 153 0
+  92 0020 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
+  93 0022 1340     		ands	r3, r3, r2
+  94              	.LVL7:
+  95 0024 0B43     		orrs	r3, r3, r1
+  96              	.LVL8:
+ 154:lib/src/misc.c ****         
+ 155:lib/src/misc.c ****     tmppriority = tmppriority << 0x04;
+  97              		.loc 1 155 0
+  98 0026 1B01     		lsls	r3, r3, #4
+  99              	.LVL9:
+ 100 0028 DBB2     		uxtb	r3, r3
+ 101              	.LVL10:
+ 156:lib/src/misc.c ****         
+ 157:lib/src/misc.c ****     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
+ 102              		.loc 1 157 0
+ 103 002a 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+ 104 002c 0F49     		ldr	r1, .L9+4
+ 105 002e 0A44     		add	r2, r2, r1
+ 106 0030 82F80033 		strb	r3, [r2, #768]
+ 158:lib/src/misc.c ****     
+ 159:lib/src/misc.c ****     /* Enable the Selected IRQ Channels --------------------------------------*/
+ 160:lib/src/misc.c ****     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+ 107              		.loc 1 160 0
+ 108 0034 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 109              	.LVL11:
+ 110 0036 5809     		lsrs	r0, r3, #5
+ 111              	.LVL12:
+ 161:lib/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 112              		.loc 1 161 0
+ 113 0038 03F01F03 		and	r3, r3, #31
+ 114 003c 0122     		movs	r2, #1
+ 115              	.LVL13:
+ 116 003e 02FA03F3 		lsl	r3, r2, r3
+ 160:lib/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 117              		.loc 1 160 0
+ 118 0042 41F82030 		str	r3, [r1, r0, lsl #2]
+ 119 0046 0BE0     		b	.L4
+ 120              	.LVL14:
+ 121              	.L5:
+ 122              	.LCFI1:
+ 123              		.cfi_def_cfa_offset 0
+ 124              		.cfi_restore 4
+ 162:lib/src/misc.c ****   }
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 6
+
+
+ 163:lib/src/misc.c ****   else
+ 164:lib/src/misc.c ****   {
+ 165:lib/src/misc.c ****     /* Disable the Selected IRQ Channels -------------------------------------*/
+ 166:lib/src/misc.c ****     NVIC->ICER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+ 125              		.loc 1 166 0
+ 126 0048 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 127 004a 5A09     		lsrs	r2, r3, #5
+ 167:lib/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 128              		.loc 1 167 0
+ 129 004c 03F01F03 		and	r3, r3, #31
+ 130 0050 0121     		movs	r1, #1
+ 131 0052 01FA03F3 		lsl	r3, r1, r3
+ 166:lib/src/misc.c ****       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
+ 132              		.loc 1 166 0
+ 133 0056 2032     		adds	r2, r2, #32
+ 134 0058 0449     		ldr	r1, .L9+4
+ 135 005a 41F82230 		str	r3, [r1, r2, lsl #2]
+ 168:lib/src/misc.c ****   }
+ 169:lib/src/misc.c **** }
+ 136              		.loc 1 169 0
+ 137 005e 7047     		bx	lr
+ 138              	.LVL15:
+ 139              	.L4:
+ 140              	.LCFI2:
+ 141              		.cfi_def_cfa_offset 4
+ 142              		.cfi_offset 4, -4
+ 143 0060 5DF8044B 		ldr	r4, [sp], #4
+ 144              	.LCFI3:
+ 145              		.cfi_restore 4
+ 146              		.cfi_def_cfa_offset 0
+ 147              	.LVL16:
+ 148 0064 7047     		bx	lr
+ 149              	.L10:
+ 150 0066 00BF     		.align	2
+ 151              	.L9:
+ 152 0068 00ED00E0 		.word	-536810240
+ 153 006c 00E100E0 		.word	-536813312
+ 154              		.cfi_endproc
+ 155              	.LFE124:
+ 157              		.section	.text.NVIC_SetVectorTable,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	NVIC_SetVectorTable
+ 160              		.thumb
+ 161              		.thumb_func
+ 163              	NVIC_SetVectorTable:
+ 164              	.LFB125:
+ 170:lib/src/misc.c **** 
+ 171:lib/src/misc.c **** /**
+ 172:lib/src/misc.c ****   * @brief  Sets the vector table location and Offset.
+ 173:lib/src/misc.c ****   * @param  NVIC_VectTab: specifies if the vector table is in RAM or FLASH memory.
+ 174:lib/src/misc.c ****   *   This parameter can be one of the following values:
+ 175:lib/src/misc.c ****   *     @arg NVIC_VectTab_RAM: Vector Table in internal SRAM.
+ 176:lib/src/misc.c ****   *     @arg NVIC_VectTab_FLASH: Vector Table in internal FLASH.
+ 177:lib/src/misc.c ****   * @param  Offset: Vector Table base offset field. This value must be a multiple of 0x200.
+ 178:lib/src/misc.c ****   * @retval None
+ 179:lib/src/misc.c ****   */
+ 180:lib/src/misc.c **** void NVIC_SetVectorTable(uint32_t NVIC_VectTab, uint32_t Offset)
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 7
+
+
+ 181:lib/src/misc.c **** { 
+ 165              		.loc 1 181 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169              		@ link register save eliminated.
+ 170              	.LVL17:
+ 182:lib/src/misc.c ****   /* Check the parameters */
+ 183:lib/src/misc.c ****   assert_param(IS_NVIC_VECTTAB(NVIC_VectTab));
+ 184:lib/src/misc.c ****   assert_param(IS_NVIC_OFFSET(Offset));  
+ 185:lib/src/misc.c ****    
+ 186:lib/src/misc.c ****   SCB->VTOR = NVIC_VectTab | (Offset & (uint32_t)0x1FFFFF80);
+ 171              		.loc 1 186 0
+ 172 0000 21F06041 		bic	r1, r1, #-536870912
+ 173              	.LVL18:
+ 174 0004 21F07F01 		bic	r1, r1, #127
+ 175 0008 0843     		orrs	r0, r0, r1
+ 176              	.LVL19:
+ 177 000a 014B     		ldr	r3, .L12
+ 178 000c 9860     		str	r0, [r3, #8]
+ 179 000e 7047     		bx	lr
+ 180              	.L13:
+ 181              		.align	2
+ 182              	.L12:
+ 183 0010 00ED00E0 		.word	-536810240
+ 184              		.cfi_endproc
+ 185              	.LFE125:
+ 187              		.section	.text.NVIC_SystemLPConfig,"ax",%progbits
+ 188              		.align	2
+ 189              		.global	NVIC_SystemLPConfig
+ 190              		.thumb
+ 191              		.thumb_func
+ 193              	NVIC_SystemLPConfig:
+ 194              	.LFB126:
+ 187:lib/src/misc.c **** }
+ 188:lib/src/misc.c **** 
+ 189:lib/src/misc.c **** /**
+ 190:lib/src/misc.c ****   * @brief  Selects the condition for the system to enter low power mode.
+ 191:lib/src/misc.c ****   * @param  LowPowerMode: Specifies the new mode for the system to enter low power mode.
+ 192:lib/src/misc.c ****   *   This parameter can be one of the following values:
+ 193:lib/src/misc.c ****   *     @arg NVIC_LP_SEVONPEND: Low Power SEV on Pend.
+ 194:lib/src/misc.c ****   *     @arg NVIC_LP_SLEEPDEEP: Low Power DEEPSLEEP request.
+ 195:lib/src/misc.c ****   *     @arg NVIC_LP_SLEEPONEXIT: Low Power Sleep on Exit.
+ 196:lib/src/misc.c ****   * @param  NewState: new state of LP condition. This parameter can be: ENABLE or DISABLE.
+ 197:lib/src/misc.c ****   * @retval None
+ 198:lib/src/misc.c ****   */
+ 199:lib/src/misc.c **** void NVIC_SystemLPConfig(uint8_t LowPowerMode, FunctionalState NewState)
+ 200:lib/src/misc.c **** {
+ 195              		.loc 1 200 0
+ 196              		.cfi_startproc
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199              		@ link register save eliminated.
+ 200              	.LVL20:
+ 201:lib/src/misc.c ****   /* Check the parameters */
+ 202:lib/src/misc.c ****   assert_param(IS_NVIC_LP(LowPowerMode));
+ 203:lib/src/misc.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));  
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 8
+
+
+ 204:lib/src/misc.c ****   
+ 205:lib/src/misc.c ****   if (NewState != DISABLE)
+ 201              		.loc 1 205 0
+ 202 0000 21B1     		cbz	r1, .L15
+ 206:lib/src/misc.c ****   {
+ 207:lib/src/misc.c ****     SCB->SCR |= LowPowerMode;
+ 203              		.loc 1 207 0
+ 204 0002 054A     		ldr	r2, .L17
+ 205 0004 1369     		ldr	r3, [r2, #16]
+ 206 0006 1843     		orrs	r0, r0, r3
+ 207              	.LVL21:
+ 208 0008 1061     		str	r0, [r2, #16]
+ 209 000a 7047     		bx	lr
+ 210              	.LVL22:
+ 211              	.L15:
+ 208:lib/src/misc.c ****   }
+ 209:lib/src/misc.c ****   else
+ 210:lib/src/misc.c ****   {
+ 211:lib/src/misc.c ****     SCB->SCR &= (uint32_t)(~(uint32_t)LowPowerMode);
+ 212              		.loc 1 211 0
+ 213 000c 024A     		ldr	r2, .L17
+ 214 000e 1369     		ldr	r3, [r2, #16]
+ 215 0010 23EA0000 		bic	r0, r3, r0
+ 216              	.LVL23:
+ 217 0014 1061     		str	r0, [r2, #16]
+ 218 0016 7047     		bx	lr
+ 219              	.L18:
+ 220              		.align	2
+ 221              	.L17:
+ 222 0018 00ED00E0 		.word	-536810240
+ 223              		.cfi_endproc
+ 224              	.LFE126:
+ 226              		.section	.text.SysTick_CLKSourceConfig,"ax",%progbits
+ 227              		.align	2
+ 228              		.global	SysTick_CLKSourceConfig
+ 229              		.thumb
+ 230              		.thumb_func
+ 232              	SysTick_CLKSourceConfig:
+ 233              	.LFB127:
+ 212:lib/src/misc.c ****   }
+ 213:lib/src/misc.c **** }
+ 214:lib/src/misc.c **** 
+ 215:lib/src/misc.c **** /**
+ 216:lib/src/misc.c ****   * @brief  Configures the SysTick clock source.
+ 217:lib/src/misc.c ****   * @param  SysTick_CLKSource: specifies the SysTick clock source.
+ 218:lib/src/misc.c ****   *   This parameter can be one of the following values:
+ 219:lib/src/misc.c ****   *     @arg SysTick_CLKSource_HCLK_Div8: AHB clock divided by 8 selected as SysTick clock source.
+ 220:lib/src/misc.c ****   *     @arg SysTick_CLKSource_HCLK: AHB clock selected as SysTick clock source.
+ 221:lib/src/misc.c ****   * @retval None
+ 222:lib/src/misc.c ****   */
+ 223:lib/src/misc.c **** void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource)
+ 224:lib/src/misc.c **** {
+ 234              		.loc 1 224 0
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238              		@ link register save eliminated.
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 9
+
+
+ 239              	.LVL24:
+ 225:lib/src/misc.c ****   /* Check the parameters */
+ 226:lib/src/misc.c ****   assert_param(IS_SYSTICK_CLK_SOURCE(SysTick_CLKSource));
+ 227:lib/src/misc.c ****   if (SysTick_CLKSource == SysTick_CLKSource_HCLK)
+ 240              		.loc 1 227 0
+ 241 0000 0428     		cmp	r0, #4
+ 242 0002 05D1     		bne	.L20
+ 228:lib/src/misc.c ****   {
+ 229:lib/src/misc.c ****     SysTick->CTRL |= SysTick_CLKSource_HCLK;
+ 243              		.loc 1 229 0
+ 244 0004 054A     		ldr	r2, .L22
+ 245 0006 1368     		ldr	r3, [r2]
+ 246 0008 43F00403 		orr	r3, r3, #4
+ 247 000c 1360     		str	r3, [r2]
+ 248 000e 7047     		bx	lr
+ 249              	.L20:
+ 230:lib/src/misc.c ****   }
+ 231:lib/src/misc.c ****   else
+ 232:lib/src/misc.c ****   {
+ 233:lib/src/misc.c ****     SysTick->CTRL &= SysTick_CLKSource_HCLK_Div8;
+ 250              		.loc 1 233 0
+ 251 0010 024A     		ldr	r2, .L22
+ 252 0012 1368     		ldr	r3, [r2]
+ 253 0014 23F00403 		bic	r3, r3, #4
+ 254 0018 1360     		str	r3, [r2]
+ 255 001a 7047     		bx	lr
+ 256              	.L23:
+ 257              		.align	2
+ 258              	.L22:
+ 259 001c 10E000E0 		.word	-536813552
+ 260              		.cfi_endproc
+ 261              	.LFE127:
+ 263              		.text
+ 264              	.Letext0:
+ 265              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 266              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 267              		.file 4 "lib/system/core_cm4.h"
+ 268              		.file 5 "lib/stm32f4xx.h"
+ 269              		.file 6 "lib/inc/misc.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 misc.c
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:22     .text.NVIC_PriorityGroupConfig:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:27     .text.NVIC_PriorityGroupConfig:00000000 NVIC_PriorityGroupConfig
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:46     .text.NVIC_PriorityGroupConfig:00000010 $d
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:51     .text.NVIC_Init:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:56     .text.NVIC_Init:00000000 NVIC_Init
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:152    .text.NVIC_Init:00000068 $d
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:158    .text.NVIC_SetVectorTable:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:163    .text.NVIC_SetVectorTable:00000000 NVIC_SetVectorTable
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:183    .text.NVIC_SetVectorTable:00000010 $d
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:188    .text.NVIC_SystemLPConfig:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:193    .text.NVIC_SystemLPConfig:00000000 NVIC_SystemLPConfig
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:222    .text.NVIC_SystemLPConfig:00000018 $d
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:227    .text.SysTick_CLKSourceConfig:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:232    .text.SysTick_CLKSourceConfig:00000000 SysTick_CLKSourceConfig
+C:\Users\rinck\AppData\Local\Temp\cc5ui4iC.s:259    .text.SysTick_CLKSourceConfig:0000001c $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

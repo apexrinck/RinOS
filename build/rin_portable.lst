@@ -1,0 +1,283 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"rin_portable.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.rin_clog_delay,"ax",%progbits
+  22              		.align	2
+  23              		.global	rin_clog_delay
+  24              		.thumb
+  25              		.thumb_func
+  27              	rin_clog_delay:
+  28              	.LFB123:
+  29              		.file 1 "core/portable/rin_portable.c"
+   1:core/portable/rin_portable.c **** /*
+   2:core/portable/rin_portable.c ****  * MIT License
+   3:core/portable/rin_portable.c ****  * 
+   4:core/portable/rin_portable.c ****  * Copyright (c) [2018] [CSU Yangyang]
+   5:core/portable/rin_portable.c ****  * 
+   6:core/portable/rin_portable.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   7:core/portable/rin_portable.c ****  * of this software and associated documentation files (the "Software"), to deal
+   8:core/portable/rin_portable.c ****  * in the Software without restriction, including without limitation the rights
+   9:core/portable/rin_portable.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  10:core/portable/rin_portable.c ****  * copies of the Software, and to permit persons to whom the Software is
+  11:core/portable/rin_portable.c ****  * furnished to do so, subject to the following conditions:
+  12:core/portable/rin_portable.c ****  * 
+  13:core/portable/rin_portable.c ****  * The above copyright notice and this permission notice shall be included in all
+  14:core/portable/rin_portable.c ****  * copies or substantial portions of the Software.
+  15:core/portable/rin_portable.c ****  * 
+  16:core/portable/rin_portable.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  17:core/portable/rin_portable.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  18:core/portable/rin_portable.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  19:core/portable/rin_portable.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  20:core/portable/rin_portable.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  21:core/portable/rin_portable.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  22:core/portable/rin_portable.c ****  * SOFTWARE.
+  23:core/portable/rin_portable.c **** */
+  24:core/portable/rin_portable.c **** 
+  25:core/portable/rin_portable.c **** 
+  26:core/portable/rin_portable.c **** #include "rin_portable.h"
+  27:core/portable/rin_portable.c **** #include "stdarg.h"
+  28:core/portable/rin_portable.c **** #include "stdlib.h"
+  29:core/portable/rin_portable.c **** 
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s 			page 2
+
+
+  30:core/portable/rin_portable.c **** 
+  31:core/portable/rin_portable.c **** #ifdef STM32F405RGT6
+  32:core/portable/rin_portable.c **** 
+  33:core/portable/rin_portable.c ****     /**** Serial IO ****/
+  34:core/portable/rin_portable.c ****     USART_TypeDef* serial_p;
+  35:core/portable/rin_portable.c **** 
+  36:core/portable/rin_portable.c ****     
+  37:core/portable/rin_portable.c **** #endif /* STM32F405RGT6 */
+  38:core/portable/rin_portable.c **** 
+  39:core/portable/rin_portable.c **** 
+  40:core/portable/rin_portable.c **** // Using when RinOS initializing not finished.
+  41:core/portable/rin_portable.c **** void rin_clog_delay(U32 time)
+  42:core/portable/rin_portable.c **** {
+  30              		.loc 1 42 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              	.LVL0:
+  36              	.LBB2:
+  43:core/portable/rin_portable.c ****     for(U32 i = 0; i <= time; i++)
+  37              		.loc 1 43 0
+  38 0000 0022     		movs	r2, #0
+  39 0002 05E0     		b	.L2
+  40              	.LVL1:
+  41              	.L3:
+  42              	.LBB3:
+  44:core/portable/rin_portable.c ****     {
+  45:core/portable/rin_portable.c ****         for(U32 j = 30000000; j; j--);  // Depend on main frequence.
+  43              		.loc 1 45 0 discriminator 3
+  44 0004 013B     		subs	r3, r3, #1
+  45              	.LVL2:
+  46 0006 00E0     		b	.L4
+  47              	.LVL3:
+  48              	.L5:
+  49              	.LBE3:
+  50 0008 034B     		ldr	r3, .L6
+  51              	.L4:
+  52              	.LVL4:
+  53              	.LBB4:
+  54              		.loc 1 45 0 is_stmt 0 discriminator 1
+  55 000a 002B     		cmp	r3, #0
+  56 000c FAD1     		bne	.L3
+  57              	.LBE4:
+  43:core/portable/rin_portable.c ****     for(U32 i = 0; i <= time; i++)
+  58              		.loc 1 43 0 is_stmt 1 discriminator 2
+  59 000e 0132     		adds	r2, r2, #1
+  60              	.LVL5:
+  61              	.L2:
+  43:core/portable/rin_portable.c ****     for(U32 i = 0; i <= time; i++)
+  62              		.loc 1 43 0 is_stmt 0 discriminator 1
+  63 0010 8242     		cmp	r2, r0
+  64 0012 F9D9     		bls	.L5
+  65              	.LBE2:
+  46:core/portable/rin_portable.c ****     }
+  47:core/portable/rin_portable.c **** }
+  66              		.loc 1 47 0 is_stmt 1
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s 			page 3
+
+
+  67 0014 7047     		bx	lr
+  68              	.L7:
+  69 0016 00BF     		.align	2
+  70              	.L6:
+  71 0018 80C3C901 		.word	30000000
+  72              		.cfi_endproc
+  73              	.LFE123:
+  75              		.section	.text._write,"ax",%progbits
+  76              		.align	2
+  77              		.global	_write
+  78              		.thumb
+  79              		.thumb_func
+  81              	_write:
+  82              	.LFB124:
+  48:core/portable/rin_portable.c **** 
+  49:core/portable/rin_portable.c **** // Support by hardware.
+  50:core/portable/rin_portable.c **** U8 _write(U8* ptr, U8 len)
+  51:core/portable/rin_portable.c **** {
+  83              		.loc 1 51 0
+  84              		.cfi_startproc
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87              	.LVL6:
+  88 0000 70B5     		push	{r4, r5, r6, lr}
+  89              	.LCFI0:
+  90              		.cfi_def_cfa_offset 16
+  91              		.cfi_offset 4, -16
+  92              		.cfi_offset 5, -12
+  93              		.cfi_offset 6, -8
+  94              		.cfi_offset 14, -4
+  95 0002 0646     		mov	r6, r0
+  96 0004 0D46     		mov	r5, r1
+  97              	.LVL7:
+  52:core/portable/rin_portable.c ****     U8 data_idx;
+  53:core/portable/rin_portable.c ****     for(data_idx = 0; data_idx < len; data_idx++)
+  98              		.loc 1 53 0
+  99 0006 0024     		movs	r4, #0
+ 100 0008 0BE0     		b	.L9
+ 101              	.LVL8:
+ 102              	.L11:
+  54:core/portable/rin_portable.c ****     {
+  55:core/portable/rin_portable.c ****         USART_SendData(USART3, (U8)(*(ptr + data_idx)));
+ 103              		.loc 1 55 0
+ 104 000a 315D     		ldrb	r1, [r6, r4]	@ zero_extendqisi2
+ 105 000c 0748     		ldr	r0, .L13
+ 106 000e FFF7FEFF 		bl	USART_SendData
+ 107              	.LVL9:
+ 108              	.L10:
+  56:core/portable/rin_portable.c ****         while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
+ 109              		.loc 1 56 0 discriminator 1
+ 110 0012 8021     		movs	r1, #128
+ 111 0014 0548     		ldr	r0, .L13
+ 112 0016 FFF7FEFF 		bl	USART_GetFlagStatus
+ 113              	.LVL10:
+ 114 001a 0028     		cmp	r0, #0
+ 115 001c F9D0     		beq	.L10
+  53:core/portable/rin_portable.c ****     {
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s 			page 4
+
+
+ 116              		.loc 1 53 0 discriminator 2
+ 117 001e 0134     		adds	r4, r4, #1
+ 118              	.LVL11:
+ 119 0020 E4B2     		uxtb	r4, r4
+ 120              	.LVL12:
+ 121              	.L9:
+  53:core/portable/rin_portable.c ****     {
+ 122              		.loc 1 53 0 is_stmt 0 discriminator 1
+ 123 0022 AC42     		cmp	r4, r5
+ 124 0024 F1D3     		bcc	.L11
+  57:core/portable/rin_portable.c ****     }
+  58:core/portable/rin_portable.c ****     return data_idx;
+  59:core/portable/rin_portable.c **** }
+ 125              		.loc 1 59 0 is_stmt 1
+ 126 0026 2046     		mov	r0, r4
+ 127 0028 70BD     		pop	{r4, r5, r6, pc}
+ 128              	.LVL13:
+ 129              	.L14:
+ 130 002a 00BF     		.align	2
+ 131              	.L13:
+ 132 002c 00480040 		.word	1073760256
+ 133              		.cfi_endproc
+ 134              	.LFE124:
+ 136              		.section	.text._write_U8,"ax",%progbits
+ 137              		.align	2
+ 138              		.global	_write_U8
+ 139              		.thumb
+ 140              		.thumb_func
+ 142              	_write_U8:
+ 143              	.LFB125:
+  60:core/portable/rin_portable.c **** 
+  61:core/portable/rin_portable.c **** void _write_U8(U8 data)
+  62:core/portable/rin_portable.c **** {
+ 144              		.loc 1 62 0
+ 145              		.cfi_startproc
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 0, uses_anonymous_args = 0
+ 148              	.LVL14:
+ 149 0000 08B5     		push	{r3, lr}
+ 150              	.LCFI1:
+ 151              		.cfi_def_cfa_offset 8
+ 152              		.cfi_offset 3, -8
+ 153              		.cfi_offset 14, -4
+  63:core/portable/rin_portable.c ****     USART_SendData(USART3, (U8)(data));
+ 154              		.loc 1 63 0
+ 155 0002 0146     		mov	r1, r0
+ 156 0004 0448     		ldr	r0, .L18
+ 157              	.LVL15:
+ 158 0006 FFF7FEFF 		bl	USART_SendData
+ 159              	.LVL16:
+ 160              	.L16:
+  64:core/portable/rin_portable.c ****     while(USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);
+ 161              		.loc 1 64 0 discriminator 1
+ 162 000a 8021     		movs	r1, #128
+ 163 000c 0248     		ldr	r0, .L18
+ 164 000e FFF7FEFF 		bl	USART_GetFlagStatus
+ 165              	.LVL17:
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s 			page 5
+
+
+ 166 0012 0028     		cmp	r0, #0
+ 167 0014 F9D0     		beq	.L16
+  65:core/portable/rin_portable.c **** }...
+ 168              		.loc 1 65 0
+ 169 0016 08BD     		pop	{r3, pc}
+ 170              	.L19:
+ 171              		.align	2
+ 172              	.L18:
+ 173 0018 00480040 		.word	1073760256
+ 174              		.cfi_endproc
+ 175              	.LFE125:
+ 177              		.comm	serial_p,4,4
+ 178              		.text
+ 179              	.Letext0:
+ 180              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 181              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 182              		.file 4 "lib/stm32f4xx.h"
+ 183              		.file 5 "core/inc/rin_type.h"
+ 184              		.file 6 "lib/system/core_cm4.h"
+ 185              		.file 7 "lib/inc/stm32f4xx_usart.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 rin_portable.c
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:22     .text.rin_clog_delay:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:27     .text.rin_clog_delay:00000000 rin_clog_delay
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:71     .text.rin_clog_delay:00000018 $d
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:76     .text._write:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:81     .text._write:00000000 _write
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:132    .text._write:0000002c $d
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:137    .text._write_U8:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:142    .text._write_U8:00000000 _write_U8
+C:\Users\rinck\AppData\Local\Temp\ccnRhVj0.s:173    .text._write_U8:00000018 $d
+                            *COM*:00000004 serial_p
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+USART_SendData
+USART_GetFlagStatus

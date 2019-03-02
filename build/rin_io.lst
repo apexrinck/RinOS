@@ -1,0 +1,624 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"rin_io.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.r_itoa,"ax",%progbits
+  22              		.align	2
+  23              		.global	r_itoa
+  24              		.thumb
+  25              		.thumb_func
+  27              	r_itoa:
+  28              	.LFB124:
+  29              		.file 1 "core/kernel/rin_io.c"
+   1:core/kernel/rin_io.c **** /*
+   2:core/kernel/rin_io.c ****  * MIT License
+   3:core/kernel/rin_io.c ****  * 
+   4:core/kernel/rin_io.c ****  * Copyright (c) [2018] [CSU Yangyang]
+   5:core/kernel/rin_io.c ****  * 
+   6:core/kernel/rin_io.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   7:core/kernel/rin_io.c ****  * of this software and associated documentation files (the "Software"), to deal
+   8:core/kernel/rin_io.c ****  * in the Software without restriction, including without limitation the rights
+   9:core/kernel/rin_io.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  10:core/kernel/rin_io.c ****  * copies of the Software, and to permit persons to whom the Software is
+  11:core/kernel/rin_io.c ****  * furnished to do so, subject to the following conditions:
+  12:core/kernel/rin_io.c ****  * 
+  13:core/kernel/rin_io.c ****  * The above copyright notice and this permission notice shall be included in all
+  14:core/kernel/rin_io.c ****  * copies or substantial portions of the Software.
+  15:core/kernel/rin_io.c ****  * 
+  16:core/kernel/rin_io.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  17:core/kernel/rin_io.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  18:core/kernel/rin_io.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  19:core/kernel/rin_io.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  20:core/kernel/rin_io.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  21:core/kernel/rin_io.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  22:core/kernel/rin_io.c ****  * SOFTWARE.
+  23:core/kernel/rin_io.c **** */
+  24:core/kernel/rin_io.c **** 
+  25:core/kernel/rin_io.c **** 
+  26:core/kernel/rin_io.c **** #include "stdarg.h"
+  27:core/kernel/rin_io.c **** #include "stdlib.h"
+  28:core/kernel/rin_io.c **** #include "rin_io.h"
+  29:core/kernel/rin_io.c **** // #include "rin_dnode_queue.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 2
+
+
+  30:core/kernel/rin_io.c **** #include "usart.h"
+  31:core/kernel/rin_io.c **** 
+  32:core/kernel/rin_io.c **** 
+  33:core/kernel/rin_io.c **** // U8 flag_o;
+  34:core/kernel/rin_io.c **** // dnode_t dhead_o;
+  35:core/kernel/rin_io.c **** 
+  36:core/kernel/rin_io.c **** // RinOS's itoa function.
+  37:core/kernel/rin_io.c **** void r_itoa(S32 n, U8* str, U32 radix)
+  38:core/kernel/rin_io.c **** {
+  30              		.loc 1 38 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              	.LVL0:
+  36 0000 30B4     		push	{r4, r5}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 4, -8
+  40              		.cfi_offset 5, -4
+  41              	.LVL1:
+  39:core/kernel/rin_io.c ****     S32 i, j, remain;
+  40:core/kernel/rin_io.c ****     U8 tmp;
+  41:core/kernel/rin_io.c **** 
+  42:core/kernel/rin_io.c ****     i = 0;
+  42              		.loc 1 42 0
+  43 0002 0023     		movs	r3, #0
+  44 0004 00E0     		b	.L4
+  45              	.LVL2:
+  46              	.L7:
+  43:core/kernel/rin_io.c ****     do
+  44:core/kernel/rin_io.c ****     {
+  45:core/kernel/rin_io.c ****         remain = n % radix;
+  46:core/kernel/rin_io.c ****         if(remain > 9)
+  47:core/kernel/rin_io.c ****         {
+  48:core/kernel/rin_io.c ****             *(str + i) = remain - 10 + 'A';
+  49:core/kernel/rin_io.c ****         }
+  50:core/kernel/rin_io.c ****         else
+  51:core/kernel/rin_io.c ****         {
+  52:core/kernel/rin_io.c ****             *(str + i) = remain + '0';
+  53:core/kernel/rin_io.c ****         }
+  54:core/kernel/rin_io.c ****         i++;
+  47              		.loc 1 54 0
+  48 0006 2346     		mov	r3, r4
+  49              	.LVL3:
+  50              	.L4:
+  45:core/kernel/rin_io.c ****         if(remain > 9)
+  51              		.loc 1 45 0
+  52 0008 0546     		mov	r5, r0
+  53 000a B0FBF2F4 		udiv	r4, r0, r2
+  54 000e 02FB1400 		mls	r0, r2, r4, r0
+  55              	.LVL4:
+  46:core/kernel/rin_io.c ****         {
+  56              		.loc 1 46 0
+  57 0012 0928     		cmp	r0, #9
+  58 0014 02DD     		ble	.L2
+  48:core/kernel/rin_io.c ****         }
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 3
+
+
+  59              		.loc 1 48 0
+  60 0016 3730     		adds	r0, r0, #55
+  61              	.LVL5:
+  62 0018 C854     		strb	r0, [r1, r3]
+  63 001a 01E0     		b	.L3
+  64              	.LVL6:
+  65              	.L2:
+  52:core/kernel/rin_io.c ****         }
+  66              		.loc 1 52 0
+  67 001c 3030     		adds	r0, r0, #48
+  68              	.LVL7:
+  69 001e C854     		strb	r0, [r1, r3]
+  70              	.LVL8:
+  71              	.L3:
+  72              		.loc 1 54 0
+  73 0020 5C1C     		adds	r4, r3, #1
+  74              	.LVL9:
+  55:core/kernel/rin_io.c ****     } while(n /= radix);
+  75              		.loc 1 55 0
+  76 0022 B5FBF2F0 		udiv	r0, r5, r2
+  77              	.LVL10:
+  78 0026 0028     		cmp	r0, #0
+  79 0028 EDD1     		bne	.L7
+  56:core/kernel/rin_io.c **** 
+  57:core/kernel/rin_io.c ****     str[i] = '\0';
+  80              		.loc 1 57 0
+  81 002a 0022     		movs	r2, #0
+  82              	.LVL11:
+  83 002c 0A55     		strb	r2, [r1, r4]
+  84              	.LVL12:
+  58:core/kernel/rin_io.c **** 
+  59:core/kernel/rin_io.c ****     for(i--, j = 0; j <= i; j++, i--)
+  85              		.loc 1 59 0
+  86 002e 05E0     		b	.L5
+  87              	.LVL13:
+  88              	.L6:
+  60:core/kernel/rin_io.c ****     {
+  61:core/kernel/rin_io.c ****         tmp = *(str + j);
+  89              		.loc 1 61 0 discriminator 3
+  90 0030 885C     		ldrb	r0, [r1, r2]	@ zero_extendqisi2
+  91              	.LVL14:
+  62:core/kernel/rin_io.c ****         *(str + j) = *(str + i);
+  92              		.loc 1 62 0 discriminator 3
+  93 0032 CC5C     		ldrb	r4, [r1, r3]	@ zero_extendqisi2
+  94 0034 8C54     		strb	r4, [r1, r2]
+  63:core/kernel/rin_io.c ****         *(str + i) = tmp;
+  95              		.loc 1 63 0 discriminator 3
+  96 0036 C854     		strb	r0, [r1, r3]
+  59:core/kernel/rin_io.c ****     {
+  97              		.loc 1 59 0 discriminator 3
+  98 0038 0132     		adds	r2, r2, #1
+  99              	.LVL15:
+ 100 003a 013B     		subs	r3, r3, #1
+ 101              	.LVL16:
+ 102              	.L5:
+  59:core/kernel/rin_io.c ****     {
+ 103              		.loc 1 59 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 4
+
+
+ 104 003c 9342     		cmp	r3, r2
+ 105 003e F7DA     		bge	.L6
+  64:core/kernel/rin_io.c ****     }
+  65:core/kernel/rin_io.c **** }
+ 106              		.loc 1 65 0 is_stmt 1
+ 107 0040 30BC     		pop	{r4, r5}
+ 108              	.LCFI1:
+ 109              		.cfi_restore 5
+ 110              		.cfi_restore 4
+ 111              		.cfi_def_cfa_offset 0
+ 112              	.LVL17:
+ 113 0042 7047     		bx	lr
+ 114              		.cfi_endproc
+ 115              	.LFE124:
+ 117              		.global	__aeabi_d2uiz
+ 118              		.global	__aeabi_ui2d
+ 119              		.global	__aeabi_dsub
+ 120              		.global	__aeabi_dmul
+ 121              		.section	.text.rout,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	rout
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	rout:
+ 128              	.LFB125:
+  66:core/kernel/rin_io.c **** 
+  67:core/kernel/rin_io.c **** // Output without time manage.
+  68:core/kernel/rin_io.c **** U32 rout(const U8 *fmt, ...)
+  69:core/kernel/rin_io.c **** {
+ 129              		.loc 1 69 0
+ 130              		.cfi_startproc
+ 131              		@ args = 4, pretend = 16, frame = 8
+ 132              		@ frame_needed = 0, uses_anonymous_args = 1
+ 133              	.LVL18:
+ 134 0000 0FB4     		push	{r0, r1, r2, r3}
+ 135              	.LCFI2:
+ 136              		.cfi_def_cfa_offset 16
+ 137              		.cfi_offset 0, -16
+ 138              		.cfi_offset 1, -12
+ 139              		.cfi_offset 2, -8
+ 140              		.cfi_offset 3, -4
+ 141 0002 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 142              	.LCFI3:
+ 143              		.cfi_def_cfa_offset 40
+ 144              		.cfi_offset 4, -40
+ 145              		.cfi_offset 5, -36
+ 146              		.cfi_offset 6, -32
+ 147              		.cfi_offset 7, -28
+ 148              		.cfi_offset 8, -24
+ 149              		.cfi_offset 14, -20
+ 150 0006 82B0     		sub	sp, sp, #8
+ 151              	.LCFI4:
+ 152              		.cfi_def_cfa_offset 48
+ 153 0008 08AB     		add	r3, sp, #32
+ 154 000a 53F8044B 		ldr	r4, [r3], #4
+  70:core/kernel/rin_io.c ****     U8 c, ch, *str;
+  71:core/kernel/rin_io.c ****     va_list ap;
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 5
+
+
+  72:core/kernel/rin_io.c **** 
+  73:core/kernel/rin_io.c ****     va_start(ap, fmt);
+ 155              		.loc 1 73 0
+ 156 000e 0193     		str	r3, [sp, #4]
+  74:core/kernel/rin_io.c ****     while(c = *fmt)
+ 157              		.loc 1 74 0
+ 158 0010 80E0     		b	.L10
+ 159              	.LVL19:
+ 160              	.L22:
+  75:core/kernel/rin_io.c ****     {
+  76:core/kernel/rin_io.c ****         switch(c)
+ 161              		.loc 1 76 0
+ 162 0012 2528     		cmp	r0, #37
+ 163 0014 7AD1     		bne	.L23
+  77:core/kernel/rin_io.c ****         {
+  78:core/kernel/rin_io.c ****             case '%':
+  79:core/kernel/rin_io.c ****             {
+  80:core/kernel/rin_io.c ****                 ch = *(++fmt);
+ 164              		.loc 1 80 0
+ 165 0016 651C     		adds	r5, r4, #1
+ 166              	.LVL20:
+ 167 0018 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 168              	.LVL21:
+  81:core/kernel/rin_io.c ****                 switch(ch)
+ 169              		.loc 1 81 0
+ 170 001a 642B     		cmp	r3, #100
+ 171 001c 0CD0     		beq	.L14
+ 172 001e 04D8     		bhi	.L15
+ 173 0020 252B     		cmp	r3, #37
+ 174 0022 6AD0     		beq	.L16
+ 175 0024 632B     		cmp	r3, #99
+ 176 0026 59D0     		beq	.L17
+ 177 0028 6BE0     		b	.L13
+ 178              	.L15:
+ 179 002a 732B     		cmp	r3, #115
+ 180 002c 5DD0     		beq	.L18
+ 181 002e 782B     		cmp	r3, #120
+ 182 0030 13D0     		beq	.L19
+ 183 0032 662B     		cmp	r3, #102
+ 184 0034 65D1     		bne	.L13
+ 185 0036 1EE0     		b	.L20
+ 186              	.L14:
+ 187              	.LBB2:
+  82:core/kernel/rin_io.c ****                 {
+  83:core/kernel/rin_io.c ****                     case 'd':
+  84:core/kernel/rin_io.c ****                     {
+  85:core/kernel/rin_io.c ****                         S32 n = va_arg(ap, S32);
+ 188              		.loc 1 85 0
+ 189 0038 019B     		ldr	r3, [sp, #4]
+ 190              	.LVL22:
+ 191 003a 1A1D     		adds	r2, r3, #4
+ 192 003c 0192     		str	r2, [sp, #4]
+ 193              	.LVL23:
+  86:core/kernel/rin_io.c ****                         itoa(n, str, 10);
+ 194              		.loc 1 86 0
+ 195 003e 0A22     		movs	r2, #10
+ 196 0040 0024     		movs	r4, #0
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 6
+
+
+ 197 0042 2146     		mov	r1, r4
+ 198 0044 1868     		ldr	r0, [r3]
+ 199              	.LVL24:
+ 200 0046 FFF7FEFF 		bl	itoa
+ 201              	.LVL25:
+  87:core/kernel/rin_io.c ****                         _write_U8(str[0]);
+ 202              		.loc 1 87 0
+ 203 004a 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 204 004c FFF7FEFF 		bl	_write_U8
+ 205              	.LVL26:
+  88:core/kernel/rin_io.c ****                         _write(str, 1);
+ 206              		.loc 1 88 0
+ 207 0050 0121     		movs	r1, #1
+ 208 0052 2046     		mov	r0, r4
+ 209 0054 FFF7FEFF 		bl	_write
+ 210              	.LVL27:
+  89:core/kernel/rin_io.c ****                         break;
+ 211              		.loc 1 89 0
+ 212 0058 5BE0     		b	.L21
+ 213              	.LVL28:
+ 214              	.L19:
+ 215              	.LBE2:
+ 216              	.LBB3:
+  90:core/kernel/rin_io.c ****                     }
+  91:core/kernel/rin_io.c ****                     case 'x':
+  92:core/kernel/rin_io.c ****                     {
+  93:core/kernel/rin_io.c ****                         U32 n = va_arg(ap, U32);
+ 217              		.loc 1 93 0
+ 218 005a 019B     		ldr	r3, [sp, #4]
+ 219              	.LVL29:
+ 220 005c 1A1D     		adds	r2, r3, #4
+ 221 005e 0192     		str	r2, [sp, #4]
+ 222              	.LVL30:
+  94:core/kernel/rin_io.c ****                         r_itoa(n, str, 16);
+ 223              		.loc 1 94 0
+ 224 0060 1022     		movs	r2, #16
+ 225 0062 0024     		movs	r4, #0
+ 226 0064 2146     		mov	r1, r4
+ 227 0066 1868     		ldr	r0, [r3]
+ 228              	.LVL31:
+ 229 0068 FFF7FEFF 		bl	r_itoa
+ 230              	.LVL32:
+  95:core/kernel/rin_io.c ****                         _write(str, sizeof(str));
+ 231              		.loc 1 95 0
+ 232 006c 0421     		movs	r1, #4
+ 233 006e 2046     		mov	r0, r4
+ 234 0070 FFF7FEFF 		bl	_write
+ 235              	.LVL33:
+  96:core/kernel/rin_io.c ****                         break;
+ 236              		.loc 1 96 0
+ 237 0074 4DE0     		b	.L21
+ 238              	.LVL34:
+ 239              	.L20:
+ 240              	.LBE3:
+ 241              	.LBB4:
+  97:core/kernel/rin_io.c ****                     }
+  98:core/kernel/rin_io.c ****                     case 'f':
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 7
+
+
+  99:core/kernel/rin_io.c ****                     {
+ 100:core/kernel/rin_io.c ****                         double f = va_arg(ap, double);
+ 242              		.loc 1 100 0
+ 243 0076 019B     		ldr	r3, [sp, #4]
+ 244              	.LVL35:
+ 245 0078 0733     		adds	r3, r3, #7
+ 246 007a 23F00703 		bic	r3, r3, #7
+ 247 007e 03F10802 		add	r2, r3, #8
+ 248 0082 0192     		str	r2, [sp, #4]
+ 249              	.LVL36:
+ 250 0084 D3E90067 		ldrd	r6, [r3]
+ 251              	.LVL37:
+ 101:core/kernel/rin_io.c ****                         U32 n;
+ 102:core/kernel/rin_io.c ****                         n = f;
+ 252              		.loc 1 102 0
+ 253 0088 3046     		mov	r0, r6
+ 254              	.LVL38:
+ 255 008a 3946     		mov	r1, r7
+ 256 008c FFF7FEFF 		bl	__aeabi_d2uiz
+ 257              	.LVL39:
+ 258 0090 8046     		mov	r8, r0
+ 259              	.LVL40:
+ 103:core/kernel/rin_io.c ****                         r_itoa(n ,str, 10);
+ 260              		.loc 1 103 0
+ 261 0092 0A22     		movs	r2, #10
+ 262 0094 0024     		movs	r4, #0
+ 263 0096 2146     		mov	r1, r4
+ 264 0098 FFF7FEFF 		bl	r_itoa
+ 265              	.LVL41:
+ 104:core/kernel/rin_io.c ****                         _write(str, sizeof(str));
+ 266              		.loc 1 104 0
+ 267 009c 0421     		movs	r1, #4
+ 268 009e 2046     		mov	r0, r4
+ 269 00a0 FFF7FEFF 		bl	_write
+ 270              	.LVL42:
+ 105:core/kernel/rin_io.c ****                         _write_U8('.');
+ 271              		.loc 1 105 0
+ 272 00a4 2E20     		movs	r0, #46
+ 273 00a6 FFF7FEFF 		bl	_write_U8
+ 274              	.LVL43:
+ 106:core/kernel/rin_io.c ****                         n = (f - n) * 1000000;
+ 275              		.loc 1 106 0
+ 276 00aa 4046     		mov	r0, r8
+ 277 00ac FFF7FEFF 		bl	__aeabi_ui2d
+ 278              	.LVL44:
+ 279 00b0 0246     		mov	r2, r0
+ 280 00b2 0B46     		mov	r3, r1
+ 281 00b4 3046     		mov	r0, r6
+ 282 00b6 3946     		mov	r1, r7
+ 283 00b8 FFF7FEFF 		bl	__aeabi_dsub
+ 284              	.LVL45:
+ 285 00bc 1BA3     		adr	r3, .L25+4
+ 286 00be D3E90023 		ldrd	r2, [r3]
+ 287 00c2 FFF7FEFF 		bl	__aeabi_dmul
+ 288              	.LVL46:
+ 289 00c6 FFF7FEFF 		bl	__aeabi_d2uiz
+ 290              	.LVL47:
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 8
+
+
+ 107:core/kernel/rin_io.c ****                         r_itoa(n, str, 10);
+ 291              		.loc 1 107 0
+ 292 00ca 0A22     		movs	r2, #10
+ 293 00cc 2146     		mov	r1, r4
+ 294 00ce FFF7FEFF 		bl	r_itoa
+ 295              	.LVL48:
+ 108:core/kernel/rin_io.c ****                         _write(str, sizeof(str));
+ 296              		.loc 1 108 0
+ 297 00d2 0421     		movs	r1, #4
+ 298 00d4 2046     		mov	r0, r4
+ 299 00d6 FFF7FEFF 		bl	_write
+ 300              	.LVL49:
+ 109:core/kernel/rin_io.c ****                         break;
+ 301              		.loc 1 109 0
+ 302 00da 1AE0     		b	.L21
+ 303              	.LVL50:
+ 304              	.L17:
+ 305              	.LBE4:
+ 110:core/kernel/rin_io.c ****                     }
+ 111:core/kernel/rin_io.c ****                     case 'c':
+ 112:core/kernel/rin_io.c ****                     {
+ 113:core/kernel/rin_io.c ****                         _write_U8(va_arg(ap, U32));
+ 306              		.loc 1 113 0
+ 307 00dc 019B     		ldr	r3, [sp, #4]
+ 308              	.LVL51:
+ 309 00de 1A1D     		adds	r2, r3, #4
+ 310 00e0 0192     		str	r2, [sp, #4]
+ 311              	.LVL52:
+ 312 00e2 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 313              	.LVL53:
+ 314 00e4 FFF7FEFF 		bl	_write_U8
+ 315              	.LVL54:
+ 114:core/kernel/rin_io.c ****                         break;
+ 316              		.loc 1 114 0
+ 317 00e8 13E0     		b	.L21
+ 318              	.LVL55:
+ 319              	.L18:
+ 320              	.LBB5:
+ 115:core/kernel/rin_io.c ****                     }
+ 116:core/kernel/rin_io.c ****                     case 's':
+ 117:core/kernel/rin_io.c ****                     {
+ 118:core/kernel/rin_io.c ****                         U8 *p = va_arg(ap, char *);
+ 321              		.loc 1 118 0
+ 322 00ea 019B     		ldr	r3, [sp, #4]
+ 323              	.LVL56:
+ 324 00ec 1A1D     		adds	r2, r3, #4
+ 325 00ee 0192     		str	r2, [sp, #4]
+ 326              	.LVL57:
+ 119:core/kernel/rin_io.c ****                         _write(p, sizeof(p));
+ 327              		.loc 1 119 0
+ 328 00f0 0421     		movs	r1, #4
+ 329 00f2 1868     		ldr	r0, [r3]
+ 330              	.LVL58:
+ 331 00f4 FFF7FEFF 		bl	_write
+ 332              	.LVL59:
+ 120:core/kernel/rin_io.c ****                         break;
+ 333              		.loc 1 120 0
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 9
+
+
+ 334 00f8 0BE0     		b	.L21
+ 335              	.LVL60:
+ 336              	.L16:
+ 337              	.LBE5:
+ 121:core/kernel/rin_io.c ****                     }
+ 122:core/kernel/rin_io.c ****                     case '%':
+ 123:core/kernel/rin_io.c ****                     {
+ 124:core/kernel/rin_io.c ****                         _write_U8('%');
+ 338              		.loc 1 124 0
+ 339 00fa 2520     		movs	r0, #37
+ 340              	.LVL61:
+ 341 00fc FFF7FEFF 		bl	_write_U8
+ 342              	.LVL62:
+ 125:core/kernel/rin_io.c ****                         break;
+ 343              		.loc 1 125 0
+ 344 0100 07E0     		b	.L21
+ 345              	.LVL63:
+ 346              	.L13:
+ 126:core/kernel/rin_io.c ****                     }
+ 127:core/kernel/rin_io.c ****                     default:
+ 128:core/kernel/rin_io.c ****                     {
+ 129:core/kernel/rin_io.c ****                         _write("[IO error]: format invalid!", sizeof("[IO error]: format invalid!")
+ 347              		.loc 1 129 0
+ 348 0102 1C21     		movs	r1, #28
+ 349 0104 0848     		ldr	r0, .L25
+ 350              	.LVL64:
+ 351 0106 FFF7FEFF 		bl	_write
+ 352              	.LVL65:
+ 130:core/kernel/rin_io.c ****                         break;
+ 353              		.loc 1 130 0
+ 354 010a 02E0     		b	.L21
+ 355              	.LVL66:
+ 356              	.L23:
+ 131:core/kernel/rin_io.c ****                     }
+ 132:core/kernel/rin_io.c ****                 }
+ 133:core/kernel/rin_io.c ****                 break;
+ 134:core/kernel/rin_io.c ****             }
+ 135:core/kernel/rin_io.c ****             default:
+ 136:core/kernel/rin_io.c ****             {
+ 137:core/kernel/rin_io.c ****                 _write_U8(c);
+ 357              		.loc 1 137 0
+ 358 010c FFF7FEFF 		bl	_write_U8
+ 359              	.LVL67:
+ 138:core/kernel/rin_io.c ****                 break;
+ 360              		.loc 1 138 0
+ 361 0110 2546     		mov	r5, r4
+ 362              	.LVL68:
+ 363              	.L21:
+ 139:core/kernel/rin_io.c ****             }
+ 140:core/kernel/rin_io.c ****         }
+ 141:core/kernel/rin_io.c ****         fmt++;
+ 364              		.loc 1 141 0
+ 365 0112 6C1C     		adds	r4, r5, #1
+ 366              	.LVL69:
+ 367              	.L10:
+  74:core/kernel/rin_io.c ****     {
+ 368              		.loc 1 74 0
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 10
+
+
+ 369 0114 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 370              	.LVL70:
+ 371 0116 0028     		cmp	r0, #0
+ 372 0118 7FF47BAF 		bne	.L22
+ 373              	.LVL71:
+ 142:core/kernel/rin_io.c ****     }
+ 143:core/kernel/rin_io.c ****     va_end(ap);
+ 144:core/kernel/rin_io.c **** }
+ 374              		.loc 1 144 0
+ 375 011c 02B0     		add	sp, sp, #8
+ 376              	.LCFI5:
+ 377              		.cfi_def_cfa_offset 40
+ 378              		@ sp needed
+ 379 011e BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 380              	.LCFI6:
+ 381              		.cfi_restore 14
+ 382              		.cfi_restore 8
+ 383              		.cfi_restore 7
+ 384              		.cfi_restore 6
+ 385              		.cfi_restore 5
+ 386              		.cfi_restore 4
+ 387              		.cfi_def_cfa_offset 16
+ 388              	.LVL72:
+ 389 0122 04B0     		add	sp, sp, #16
+ 390              	.LCFI7:
+ 391              		.cfi_restore 3
+ 392              		.cfi_restore 2
+ 393              		.cfi_restore 1
+ 394              		.cfi_restore 0
+ 395              		.cfi_def_cfa_offset 0
+ 396 0124 7047     		bx	lr
+ 397              	.L26:
+ 398 0126 00BF     		.align	3
+ 399              	.L25:
+ 400 0128 00000000 		.word	.LC0
+ 401 012c 00000000 		.word	0
+ 402 0130 80842E41 		.word	1093567616
+ 403              		.cfi_endproc
+ 404              	.LFE125:
+ 406              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 407              		.align	2
+ 408              	.LC0:
+ 409 0000 5B494F20 		.ascii	"[IO error]: format invalid!\000"
+ 409      6572726F 
+ 409      725D3A20 
+ 409      666F726D 
+ 409      61742069 
+ 410              		.text
+ 411              	.Letext0:
+ 412              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\lib\\gcc\\arm-none-eabi\\5.4.1\\include\\stdarg.h"
+ 413              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 414              		.file 4 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 415              		.file 5 "core/inc/rin_type.h"
+ 416              		.file 6 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\stdlib.h"
+ 417              		.file 7 "core/portable/rin_portable.h"
+ 418              		.file 8 "<built-in>"
+ 419              		.file 9 "lib/system/core_cm4.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 11
+
+
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 rin_io.c
+C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s:22     .text.r_itoa:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s:27     .text.r_itoa:00000000 r_itoa
+C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s:122    .text.rout:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s:127    .text.rout:00000000 rout
+C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s:400    .text.rout:00000128 $d
+C:\Users\rinck\AppData\Local\Temp\ccEpZsai.s:407    .rodata.str1.4:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_d2uiz
+__aeabi_ui2d
+__aeabi_dsub
+__aeabi_dmul
+itoa
+_write_U8
+_write

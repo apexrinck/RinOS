@@ -1,0 +1,370 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"rin_doublelist.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.dnode_head_init,"ax",%progbits
+  22              		.align	2
+  23              		.global	dnode_head_init
+  24              		.thumb
+  25              		.thumb_func
+  27              	dnode_head_init:
+  28              	.LFB1:
+  29              		.file 1 "core/kernel/rin_doublelist.c"
+   1:core/kernel/rin_doublelist.c **** /*
+   2:core/kernel/rin_doublelist.c ****  * MIT License
+   3:core/kernel/rin_doublelist.c ****  * 
+   4:core/kernel/rin_doublelist.c ****  * Copyright (c) [2018] [CSU Yangyang]
+   5:core/kernel/rin_doublelist.c ****  * 
+   6:core/kernel/rin_doublelist.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   7:core/kernel/rin_doublelist.c ****  * of this software and associated documentation files (the "Software"), to deal
+   8:core/kernel/rin_doublelist.c ****  * in the Software without restriction, including without limitation the rights
+   9:core/kernel/rin_doublelist.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  10:core/kernel/rin_doublelist.c ****  * copies of the Software, and to permit persons to whom the Software is
+  11:core/kernel/rin_doublelist.c ****  * furnished to do so, subject to the following conditions:
+  12:core/kernel/rin_doublelist.c ****  * 
+  13:core/kernel/rin_doublelist.c ****  * The above copyright notice and this permission notice shall be included in all
+  14:core/kernel/rin_doublelist.c ****  * copies or substantial portions of the Software.
+  15:core/kernel/rin_doublelist.c ****  * 
+  16:core/kernel/rin_doublelist.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  17:core/kernel/rin_doublelist.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  18:core/kernel/rin_doublelist.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  19:core/kernel/rin_doublelist.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  20:core/kernel/rin_doublelist.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  21:core/kernel/rin_doublelist.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  22:core/kernel/rin_doublelist.c ****  * SOFTWARE.
+  23:core/kernel/rin_doublelist.c ****  */
+  24:core/kernel/rin_doublelist.c **** 
+  25:core/kernel/rin_doublelist.c **** 
+  26:core/kernel/rin_doublelist.c **** #include "rin_doublelist.h"
+  27:core/kernel/rin_doublelist.c **** #include "stdio.h"
+  28:core/kernel/rin_doublelist.c **** 
+  29:core/kernel/rin_doublelist.c **** 
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 2
+
+
+  30:core/kernel/rin_doublelist.c **** // doublelist head init.
+  31:core/kernel/rin_doublelist.c **** void dnode_head_init(DNODE_P hd)
+  32:core/kernel/rin_doublelist.c **** {
+  30              		.loc 1 32 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              	.LVL0:
+  33:core/kernel/rin_doublelist.c ****     hd->next = hd;
+  36              		.loc 1 33 0
+  37 0000 0060     		str	r0, [r0]
+  34:core/kernel/rin_doublelist.c ****     hd->prev = hd;
+  38              		.loc 1 34 0
+  39 0002 4060     		str	r0, [r0, #4]
+  40 0004 7047     		bx	lr
+  41              		.cfi_endproc
+  42              	.LFE1:
+  44 0006 00BF     		.section	.text.dnode_clear,"ax",%progbits
+  45              		.align	2
+  46              		.global	dnode_clear
+  47              		.thumb
+  48              		.thumb_func
+  50              	dnode_clear:
+  51              	.LFB2:
+  35:core/kernel/rin_doublelist.c **** }
+  36:core/kernel/rin_doublelist.c **** 
+  37:core/kernel/rin_doublelist.c **** // doublelist point clear.
+  38:core/kernel/rin_doublelist.c **** void dnode_clear(DNODE_P nd)
+  39:core/kernel/rin_doublelist.c **** {
+  52              		.loc 1 39 0
+  53              		.cfi_startproc
+  54              		@ args = 0, pretend = 0, frame = 0
+  55              		@ frame_needed = 0, uses_anonymous_args = 0
+  56              		@ link register save eliminated.
+  57              	.LVL1:
+  40:core/kernel/rin_doublelist.c ****     nd->next = NULL;
+  58              		.loc 1 40 0
+  59 0000 0023     		movs	r3, #0
+  60 0002 0360     		str	r3, [r0]
+  41:core/kernel/rin_doublelist.c ****     nd->prev = NULL;
+  61              		.loc 1 41 0
+  62 0004 4360     		str	r3, [r0, #4]
+  63 0006 7047     		bx	lr
+  64              		.cfi_endproc
+  65              	.LFE2:
+  67              		.section	.text.dnode_add_first,"ax",%progbits
+  68              		.align	2
+  69              		.global	dnode_add_first
+  70              		.thumb
+  71              		.thumb_func
+  73              	dnode_add_first:
+  74              	.LFB3:
+  42:core/kernel/rin_doublelist.c **** }
+  43:core/kernel/rin_doublelist.c **** 
+  44:core/kernel/rin_doublelist.c **** // Add int the head of doublelist.
+  45:core/kernel/rin_doublelist.c **** void dnode_add_first(DNODE_P hd, DNODE_P nd)
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 3
+
+
+  46:core/kernel/rin_doublelist.c **** {
+  75              		.loc 1 46 0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79              		@ link register save eliminated.
+  80              	.LVL2:
+  47:core/kernel/rin_doublelist.c ****     hd->next->prev = nd;
+  81              		.loc 1 47 0
+  82 0000 0368     		ldr	r3, [r0]
+  83 0002 5960     		str	r1, [r3, #4]
+  48:core/kernel/rin_doublelist.c ****     nd->next       = hd->next;
+  84              		.loc 1 48 0
+  85 0004 0368     		ldr	r3, [r0]
+  86 0006 0B60     		str	r3, [r1]
+  49:core/kernel/rin_doublelist.c ****     nd->prev       = hd;
+  87              		.loc 1 49 0
+  88 0008 4860     		str	r0, [r1, #4]
+  50:core/kernel/rin_doublelist.c ****     hd->next       = nd;
+  89              		.loc 1 50 0
+  90 000a 0160     		str	r1, [r0]
+  91 000c 7047     		bx	lr
+  92              		.cfi_endproc
+  93              	.LFE3:
+  95 000e 00BF     		.section	.text.dnode_add_last,"ax",%progbits
+  96              		.align	2
+  97              		.global	dnode_add_last
+  98              		.thumb
+  99              		.thumb_func
+ 101              	dnode_add_last:
+ 102              	.LFB4:
+  51:core/kernel/rin_doublelist.c **** }
+  52:core/kernel/rin_doublelist.c **** 
+  53:core/kernel/rin_doublelist.c **** // Add int the last of doublelist.
+  54:core/kernel/rin_doublelist.c **** void dnode_add_last(DNODE_P hd, DNODE_P nd)
+  55:core/kernel/rin_doublelist.c **** {
+ 103              		.loc 1 55 0
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107              		@ link register save eliminated.
+ 108              	.LVL3:
+  56:core/kernel/rin_doublelist.c ****     hd->prev->next = nd;
+ 109              		.loc 1 56 0
+ 110 0000 4368     		ldr	r3, [r0, #4]
+ 111 0002 1960     		str	r1, [r3]
+  57:core/kernel/rin_doublelist.c ****     nd->prev       = hd->prev;
+  58:core/kernel/rin_doublelist.c ****     nd->next       = hd;
+ 112              		.loc 1 58 0
+ 113 0004 0860     		str	r0, [r1]
+  59:core/kernel/rin_doublelist.c ****     nd->prev       = nd;
+ 114              		.loc 1 59 0
+ 115 0006 4960     		str	r1, [r1, #4]
+ 116 0008 7047     		bx	lr
+ 117              		.cfi_endproc
+ 118              	.LFE4:
+ 120 000a 00BF     		.section	.text.dnode_remove,"ax",%progbits
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 4
+
+
+ 121              		.align	2
+ 122              		.global	dnode_remove
+ 123              		.thumb
+ 124              		.thumb_func
+ 126              	dnode_remove:
+ 127              	.LFB5:
+  60:core/kernel/rin_doublelist.c **** }
+  61:core/kernel/rin_doublelist.c **** 
+  62:core/kernel/rin_doublelist.c **** // Remove doublelist.
+  63:core/kernel/rin_doublelist.c **** void dnode_remove(DNODE_P nd)
+  64:core/kernel/rin_doublelist.c **** {
+ 128              		.loc 1 64 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132              		@ link register save eliminated.
+ 133              	.LVL4:
+  65:core/kernel/rin_doublelist.c ****     nd->next->prev = nd->prev;
+ 134              		.loc 1 65 0
+ 135 0000 0368     		ldr	r3, [r0]
+ 136 0002 4268     		ldr	r2, [r0, #4]
+ 137 0004 5A60     		str	r2, [r3, #4]
+  66:core/kernel/rin_doublelist.c ****     nd->prev->next = nd->next;
+ 138              		.loc 1 66 0
+ 139 0006 4368     		ldr	r3, [r0, #4]
+ 140 0008 0268     		ldr	r2, [r0]
+ 141 000a 1A60     		str	r2, [r3]
+  67:core/kernel/rin_doublelist.c ****     nd->prev       = NULL;
+ 142              		.loc 1 67 0
+ 143 000c 0023     		movs	r3, #0
+ 144 000e 4360     		str	r3, [r0, #4]
+  68:core/kernel/rin_doublelist.c ****     nd->next       = NULL;
+ 145              		.loc 1 68 0
+ 146 0010 0360     		str	r3, [r0]
+ 147 0012 7047     		bx	lr
+ 148              		.cfi_endproc
+ 149              	.LFE5:
+ 151              		.section	.text.dnode_inlist,"ax",%progbits
+ 152              		.align	2
+ 153              		.global	dnode_inlist
+ 154              		.thumb
+ 155              		.thumb_func
+ 157              	dnode_inlist:
+ 158              	.LFB6:
+  69:core/kernel/rin_doublelist.c **** }
+  70:core/kernel/rin_doublelist.c **** 
+  71:core/kernel/rin_doublelist.c **** // find out is the node in list or not.
+  72:core/kernel/rin_doublelist.c **** U8 dnode_inlist(DNODE_P hd, DNODE_P nd)
+  73:core/kernel/rin_doublelist.c **** {
+ 159              		.loc 1 73 0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 0
+ 162              		@ frame_needed = 0, uses_anonymous_args = 0
+ 163              		@ link register save eliminated.
+ 164              	.LVL5:
+  74:core/kernel/rin_doublelist.c ****     DNODE_P curr = hd->next;
+ 165              		.loc 1 74 0
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 5
+
+
+ 166 0000 0368     		ldr	r3, [r0]
+ 167              	.LVL6:
+  75:core/kernel/rin_doublelist.c ****     while(curr != hd)
+ 168              		.loc 1 75 0
+ 169 0002 02E0     		b	.L7
+ 170              	.L9:
+  76:core/kernel/rin_doublelist.c ****     {
+  77:core/kernel/rin_doublelist.c ****         if(curr == nd)
+ 171              		.loc 1 77 0
+ 172 0004 8B42     		cmp	r3, r1
+ 173 0006 04D0     		beq	.L10
+  78:core/kernel/rin_doublelist.c ****         {
+  79:core/kernel/rin_doublelist.c ****             return 1;
+  80:core/kernel/rin_doublelist.c ****         }
+  81:core/kernel/rin_doublelist.c ****         curr = curr->next;
+ 174              		.loc 1 81 0
+ 175 0008 1B68     		ldr	r3, [r3]
+ 176              	.LVL7:
+ 177              	.L7:
+  75:core/kernel/rin_doublelist.c ****     {
+ 178              		.loc 1 75 0
+ 179 000a 8342     		cmp	r3, r0
+ 180 000c FAD1     		bne	.L9
+  82:core/kernel/rin_doublelist.c ****     }
+  83:core/kernel/rin_doublelist.c ****     return 0;
+ 181              		.loc 1 83 0
+ 182 000e 0020     		movs	r0, #0
+ 183              	.LVL8:
+ 184 0010 7047     		bx	lr
+ 185              	.LVL9:
+ 186              	.L10:
+  79:core/kernel/rin_doublelist.c ****         }
+ 187              		.loc 1 79 0
+ 188 0012 0120     		movs	r0, #1
+ 189              	.LVL10:
+  84:core/kernel/rin_doublelist.c **** }
+ 190              		.loc 1 84 0
+ 191 0014 7047     		bx	lr
+ 192              		.cfi_endproc
+ 193              	.LFE6:
+ 195 0016 00BF     		.section	.text.dnode_getcount,"ax",%progbits
+ 196              		.align	2
+ 197              		.global	dnode_getcount
+ 198              		.thumb
+ 199              		.thumb_func
+ 201              	dnode_getcount:
+ 202              	.LFB7:
+  85:core/kernel/rin_doublelist.c **** 
+  86:core/kernel/rin_doublelist.c **** // Count doublelist's pool size.
+  87:core/kernel/rin_doublelist.c **** U8 dnode_getcount(DNODE_P hd)
+  88:core/kernel/rin_doublelist.c **** {
+ 203              		.loc 1 88 0
+ 204              		.cfi_startproc
+ 205              		@ args = 0, pretend = 0, frame = 0
+ 206              		@ frame_needed = 0, uses_anonymous_args = 0
+ 207              		@ link register save eliminated.
+ 208              	.LVL11:
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 6
+
+
+ 209 0000 0246     		mov	r2, r0
+ 210              	.LVL12:
+  89:core/kernel/rin_doublelist.c ****     U8 res = 0;
+  90:core/kernel/rin_doublelist.c ****     DNODE_P curr = hd->next;
+ 211              		.loc 1 90 0
+ 212 0002 0368     		ldr	r3, [r0]
+ 213              	.LVL13:
+  89:core/kernel/rin_doublelist.c ****     U8 res = 0;
+ 214              		.loc 1 89 0
+ 215 0004 0020     		movs	r0, #0
+ 216              	.LVL14:
+  91:core/kernel/rin_doublelist.c ****     while(curr != hd)
+ 217              		.loc 1 91 0
+ 218 0006 02E0     		b	.L12
+ 219              	.LVL15:
+ 220              	.L13:
+  92:core/kernel/rin_doublelist.c ****     {
+  93:core/kernel/rin_doublelist.c ****         res++;
+ 221              		.loc 1 93 0
+ 222 0008 0130     		adds	r0, r0, #1
+ 223              	.LVL16:
+ 224 000a C0B2     		uxtb	r0, r0
+ 225              	.LVL17:
+  94:core/kernel/rin_doublelist.c ****         curr = curr->next;
+ 226              		.loc 1 94 0
+ 227 000c 1B68     		ldr	r3, [r3]
+ 228              	.LVL18:
+ 229              	.L12:
+  91:core/kernel/rin_doublelist.c ****     while(curr != hd)
+ 230              		.loc 1 91 0
+ 231 000e 9342     		cmp	r3, r2
+ 232 0010 FAD1     		bne	.L13
+  95:core/kernel/rin_doublelist.c ****     }
+  96:core/kernel/rin_doublelist.c ****     return res;
+  97:core/kernel/rin_doublelist.c **** }
+ 233              		.loc 1 97 0
+ 234 0012 7047     		bx	lr
+ 235              		.cfi_endproc
+ 236              	.LFE7:
+ 238              		.text
+ 239              	.Letext0:
+ 240              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 241              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 242              		.file 4 "core/kernel/rin_doublelist.h"
+ 243              		.file 5 "core/inc/rin_type.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 rin_doublelist.c
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:22     .text.dnode_head_init:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:27     .text.dnode_head_init:00000000 dnode_head_init
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:45     .text.dnode_clear:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:50     .text.dnode_clear:00000000 dnode_clear
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:68     .text.dnode_add_first:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:73     .text.dnode_add_first:00000000 dnode_add_first
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:96     .text.dnode_add_last:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:101    .text.dnode_add_last:00000000 dnode_add_last
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:121    .text.dnode_remove:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:126    .text.dnode_remove:00000000 dnode_remove
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:152    .text.dnode_inlist:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:157    .text.dnode_inlist:00000000 dnode_inlist
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:196    .text.dnode_getcount:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccy5VzgX.s:201    .text.dnode_getcount:00000000 dnode_getcount
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

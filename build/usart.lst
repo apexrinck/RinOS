@@ -1,0 +1,279 @@
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.eabi_attribute 28, 1
+   5              		.fpu fpv4-sp-d16
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.thumb
+  16              		.syntax unified
+  17              		.file	"usart.c"
+  18              		.text
+  19              	.Ltext0:
+  20              		.cfi_sections	.debug_frame
+  21              		.section	.text.usart3_init,"ax",%progbits
+  22              		.align	2
+  23              		.global	usart3_init
+  24              		.thumb
+  25              		.thumb_func
+  27              	usart3_init:
+  28              	.LFB124:
+  29              		.file 1 "usr/device/usart.c"
+   1:usr/device/usart.c **** /*
+   2:usr/device/usart.c ****  * MIT License
+   3:usr/device/usart.c ****  *
+   4:usr/device/usart.c ****  * Copyright (c) [2018] [CSU Yangyang]
+   5:usr/device/usart.c ****  *
+   6:usr/device/usart.c ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   7:usr/device/usart.c ****  * of this software and associated documentation files (the "Software"), to deal
+   8:usr/device/usart.c ****  * in the Software without restriction, including without limitation the rights
+   9:usr/device/usart.c ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  10:usr/device/usart.c ****  * copies of the Software, and to permit persons to whom the Software is
+  11:usr/device/usart.c ****  * furnished to do so, subject to the following conditions:
+  12:usr/device/usart.c ****  *
+  13:usr/device/usart.c ****  * The above copyright notice and this permission notice shall be included in all
+  14:usr/device/usart.c ****  * copies or substantial portions of the Software.
+  15:usr/device/usart.c ****  *
+  16:usr/device/usart.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  17:usr/device/usart.c ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  18:usr/device/usart.c ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  19:usr/device/usart.c ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  20:usr/device/usart.c ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  21:usr/device/usart.c ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  22:usr/device/usart.c ****  * SOFTWARE.
+  23:usr/device/usart.c ****  */
+  24:usr/device/usart.c **** 
+  25:usr/device/usart.c **** 
+  26:usr/device/usart.c **** #include "usart.h"
+  27:usr/device/usart.c **** 
+  28:usr/device/usart.c **** 
+  29:usr/device/usart.c **** // Debug usart init.
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s 			page 2
+
+
+  30:usr/device/usart.c **** void usart3_init(void)
+  31:usr/device/usart.c **** {
+  30              		.loc 1 31 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 32
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 6, -8
+  40              		.cfi_offset 14, -4
+  41 0002 88B0     		sub	sp, sp, #32
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_offset 48
+  32:usr/device/usart.c ****     GPIO_InitTypeDef    gpio;
+  33:usr/device/usart.c ****     USART_InitTypeDef   usart;
+  34:usr/device/usart.c ****     NVIC_InitTypeDef    nvic;
+  35:usr/device/usart.c **** 
+  36:usr/device/usart.c ****     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+  44              		.loc 1 36 0
+  45 0004 0121     		movs	r1, #1
+  46 0006 0420     		movs	r0, #4
+  47 0008 FFF7FEFF 		bl	RCC_AHB1PeriphClockCmd
+  48              	.LVL0:
+  37:usr/device/usart.c ****     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+  49              		.loc 1 37 0
+  50 000c 0121     		movs	r1, #1
+  51 000e 4FF48020 		mov	r0, #262144
+  52 0012 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+  53              	.LVL1:
+  38:usr/device/usart.c **** 	
+  39:usr/device/usart.c ****     GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_USART3);
+  54              		.loc 1 39 0
+  55 0016 214D     		ldr	r5, .L3
+  56 0018 0722     		movs	r2, #7
+  57 001a 0A21     		movs	r1, #10
+  58 001c 2846     		mov	r0, r5
+  59 001e FFF7FEFF 		bl	GPIO_PinAFConfig
+  60              	.LVL2:
+  40:usr/device/usart.c ****     GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_USART3);
+  61              		.loc 1 40 0
+  62 0022 0722     		movs	r2, #7
+  63 0024 0B21     		movs	r1, #11
+  64 0026 2846     		mov	r0, r5
+  65 0028 FFF7FEFF 		bl	GPIO_PinAFConfig
+  66              	.LVL3:
+  41:usr/device/usart.c **** 
+  42:usr/device/usart.c ****     gpio.GPIO_Pin   = GPIO_Pin_10 | GPIO_Pin_11;
+  67              		.loc 1 42 0
+  68 002c 4FF44063 		mov	r3, #3072
+  69 0030 0693     		str	r3, [sp, #24]
+  43:usr/device/usart.c ****     gpio.GPIO_Mode  = GPIO_Mode_AF;
+  70              		.loc 1 43 0
+  71 0032 0226     		movs	r6, #2
+  72 0034 8DF81C60 		strb	r6, [sp, #28]
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s 			page 3
+
+
+  44:usr/device/usart.c ****     gpio.GPIO_OType = GPIO_OType_PP;
+  73              		.loc 1 44 0
+  74 0038 0024     		movs	r4, #0
+  75 003a 8DF81E40 		strb	r4, [sp, #30]
+  45:usr/device/usart.c ****     gpio.GPIO_Speed = GPIO_Speed_100MHz;
+  76              		.loc 1 45 0
+  77 003e 0323     		movs	r3, #3
+  78 0040 8DF81D30 		strb	r3, [sp, #29]
+  46:usr/device/usart.c ****     gpio.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+  79              		.loc 1 46 0
+  80 0044 8DF81F40 		strb	r4, [sp, #31]
+  47:usr/device/usart.c ****     GPIO_Init(GPIOC, &gpio);
+  81              		.loc 1 47 0
+  82 0048 06A9     		add	r1, sp, #24
+  83 004a 2846     		mov	r0, r5
+  84 004c FFF7FEFF 		bl	GPIO_Init
+  85              	.LVL4:
+  48:usr/device/usart.c **** 
+  49:usr/device/usart.c ****     nvic.NVIC_IRQChannel = USART3_IRQn;
+  86              		.loc 1 49 0
+  87 0050 2723     		movs	r3, #39
+  88 0052 8DF80430 		strb	r3, [sp, #4]
+  50:usr/device/usart.c ****     nvic.NVIC_IRQChannelPreemptionPriority = 2;
+  89              		.loc 1 50 0
+  90 0056 8DF80560 		strb	r6, [sp, #5]
+  51:usr/device/usart.c ****     nvic.NVIC_IRQChannelSubPriority = 0;
+  91              		.loc 1 51 0
+  92 005a 8DF80640 		strb	r4, [sp, #6]
+  52:usr/device/usart.c ****     nvic.NVIC_IRQChannelCmd = ENABLE;
+  93              		.loc 1 52 0
+  94 005e 0125     		movs	r5, #1
+  95 0060 8DF80750 		strb	r5, [sp, #7]
+  53:usr/device/usart.c ****     NVIC_Init(&nvic);
+  96              		.loc 1 53 0
+  97 0064 01A8     		add	r0, sp, #4
+  98 0066 FFF7FEFF 		bl	NVIC_Init
+  99              	.LVL5:
+  54:usr/device/usart.c **** 
+  55:usr/device/usart.c ****     usart.USART_BaudRate    = 115200;
+ 100              		.loc 1 55 0
+ 101 006a 4FF4E133 		mov	r3, #115200
+ 102 006e 0293     		str	r3, [sp, #8]
+  56:usr/device/usart.c ****     usart.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+ 103              		.loc 1 56 0
+ 104 0070 ADF81440 		strh	r4, [sp, #20]	@ movhi
+  57:usr/device/usart.c ****     usart.USART_Mode        = USART_Mode_Rx | USART_Mode_Tx;
+ 105              		.loc 1 57 0
+ 106 0074 0C23     		movs	r3, #12
+ 107 0076 ADF81230 		strh	r3, [sp, #18]	@ movhi
+  58:usr/device/usart.c ****     usart.USART_Parity      = USART_Parity_No;
+ 108              		.loc 1 58 0
+ 109 007a ADF81040 		strh	r4, [sp, #16]	@ movhi
+  59:usr/device/usart.c ****     usart.USART_StopBits    = USART_StopBits_1;
+ 110              		.loc 1 59 0
+ 111 007e ADF80E40 		strh	r4, [sp, #14]	@ movhi
+  60:usr/device/usart.c ****     usart.USART_WordLength  = USART_WordLength_8b;
+ 112              		.loc 1 60 0
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s 			page 4
+
+
+ 113 0082 ADF80C40 		strh	r4, [sp, #12]	@ movhi
+  61:usr/device/usart.c ****     USART_Init(USART3, &usart);
+ 114              		.loc 1 61 0
+ 115 0086 064C     		ldr	r4, .L3+4
+ 116 0088 02A9     		add	r1, sp, #8
+ 117 008a 2046     		mov	r0, r4
+ 118 008c FFF7FEFF 		bl	USART_Init
+ 119              	.LVL6:
+  62:usr/device/usart.c **** 	USART_Cmd(USART3, ENABLE);
+ 120              		.loc 1 62 0
+ 121 0090 2946     		mov	r1, r5
+ 122 0092 2046     		mov	r0, r4
+ 123 0094 FFF7FEFF 		bl	USART_Cmd
+ 124              	.LVL7:
+  63:usr/device/usart.c **** }
+ 125              		.loc 1 63 0
+ 126 0098 08B0     		add	sp, sp, #32
+ 127              	.LCFI2:
+ 128              		.cfi_def_cfa_offset 16
+ 129              		@ sp needed
+ 130 009a 70BD     		pop	{r4, r5, r6, pc}
+ 131              	.L4:
+ 132              		.align	2
+ 133              	.L3:
+ 134 009c 00080240 		.word	1073874944
+ 135 00a0 00480040 		.word	1073760256
+ 136              		.cfi_endproc
+ 137              	.LFE124:
+ 139              		.section	.text.USART3_IRQHandler,"ax",%progbits
+ 140              		.align	2
+ 141              		.global	USART3_IRQHandler
+ 142              		.thumb
+ 143              		.thumb_func
+ 145              	USART3_IRQHandler:
+ 146              	.LFB125:
+  64:usr/device/usart.c **** 
+  65:usr/device/usart.c **** // Debug usart IRQ Handler.
+  66:usr/device/usart.c **** void USART3_IRQHandler(void)
+  67:usr/device/usart.c **** {
+ 147              		.loc 1 67 0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151 0000 08B5     		push	{r3, lr}
+ 152              	.LCFI3:
+ 153              		.cfi_def_cfa_offset 8
+ 154              		.cfi_offset 3, -8
+ 155              		.cfi_offset 14, -4
+  68:usr/device/usart.c ****     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
+ 156              		.loc 1 68 0
+ 157 0002 40F22551 		movw	r1, #1317
+ 158 0006 0248     		ldr	r0, .L7
+ 159 0008 FFF7FEFF 		bl	USART_GetITStatus
+ 160              	.LVL8:
+ 161 000c 08BD     		pop	{r3, pc}
+ 162              	.L8:
+ 163 000e 00BF     		.align	2
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s 			page 5
+
+
+ 164              	.L7:
+ 165 0010 00480040 		.word	1073760256
+ 166              		.cfi_endproc
+ 167              	.LFE125:
+ 169              		.text
+ 170              	.Letext0:
+ 171              		.file 2 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 172              		.file 3 "d:\\arm-none-eabi-gcc\\5.4 2016q3\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 173              		.file 4 "lib/stm32f4xx.h"
+ 174              		.file 5 "lib/inc/stm32f4xx_gpio.h"
+ 175              		.file 6 "lib/inc/stm32f4xx_usart.h"
+ 176              		.file 7 "lib/inc/misc.h"
+ 177              		.file 8 "lib/inc/stm32f4xx_rcc.h"
+ 178              		.file 9 "lib/system/core_cm4.h"
+ARM GAS  C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 usart.c
+C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s:22     .text.usart3_init:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s:27     .text.usart3_init:00000000 usart3_init
+C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s:134    .text.usart3_init:0000009c $d
+C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s:140    .text.USART3_IRQHandler:00000000 $t
+C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s:145    .text.USART3_IRQHandler:00000000 USART3_IRQHandler
+C:\Users\rinck\AppData\Local\Temp\ccwoFefB.s:165    .text.USART3_IRQHandler:00000010 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_AHB1PeriphClockCmd
+RCC_APB1PeriphClockCmd
+GPIO_PinAFConfig
+GPIO_Init
+NVIC_Init
+USART_Init
+USART_Cmd
+USART_GetITStatus

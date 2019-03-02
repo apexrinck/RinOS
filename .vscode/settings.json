@@ -1,0 +1,26 @@
+{
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "rinos.h": "c",
+        "rinos_kernel.h": "c",
+        "rin_io.h": "c",
+        "stm32f4xx.h": "c",
+        "rin_toolbox.h": "c",
+        "rin_tick.h": "c",
+        "core_cm4.h": "c",
+        "rin_cfg.h": "c",
+        "rin_portable.h": "c",
+        "rin_type.h": "c",
+        "rin_doublelist.h": "c",
+        "rin_pendsv.h": "c",
+        "rin_critical.h": "c",
+        "core_cmfunc.h": "c",
+        "usart.h": "c",
+        "usr.h": "c",
+        "stdio.h": "c",
+        "rin_heartbeat.h": "c",
+        "misc.h": "c",
+        "stdlib.h": "c"
+    }
+}
